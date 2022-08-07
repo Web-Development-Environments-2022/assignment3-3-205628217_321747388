@@ -41,11 +41,11 @@ export default {
           // "https://test-for-3-2.herokuapp.com/recipes/random"
         );
 
-        // console.log(response);
-        const recipes = response.data.recipes;
+        console.log(response);
+        const recipes = response.data;
         this.recipes = [];
         this.recipes.push(...recipes);
-        // console.log(this.recipes);
+        console.log(this.recipes);
       } catch (error) {
         console.log(error);
       }
