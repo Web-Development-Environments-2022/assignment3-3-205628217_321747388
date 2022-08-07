@@ -2,6 +2,7 @@
   <div class="container">
     <h1 class="title">Register</h1>
     <b-form @submit.prevent="onRegister" @reset.prevent="onReset">
+      <!-- username -->
       <b-form-group
         id="input-group-username"
         label-cols-sm="3"
@@ -21,10 +22,59 @@
           Username length should be between 3-8 characters long
         </b-form-invalid-feedback>
         <b-form-invalid-feedback v-if="!$v.form.username.alpha">
-          Username alpha
+          Username may only contain alphabetic characters
         </b-form-invalid-feedback>
       </b-form-group>
 
+      <!-- first name -->
+      <b-form-group
+        id="input-group-firstname"
+        label-cols-sm="3"
+        label="First Name:"
+        label-for="firstName"
+      >
+        <b-form-input
+          id="firstName"
+          v-model="$v.form.firstName.$model"
+          type="text"
+          :state="validateState('firstName')" 
+        ></b-form-input>
+        <!-- <b-form-invalid-feedback v-if="!$v.form.firstName.required">
+          Username is required
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-else-if="!$v.form.username.length">
+          Username length should be between 3-8 characters long
+        </b-form-invalid-feedback> -->
+        <b-form-invalid-feedback v-if="!$v.form.firstName.alpha">
+          First name may only contain alphabetic characters
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+      <!-- last name -->
+      <b-form-group
+        id="input-group-lastname"
+        label-cols-sm="3"
+        label="Last Name:"
+        label-for="lastName"
+      >
+        <b-form-input
+          id="lastName"
+          v-model="$v.form.lastName.$model"
+          type="text"
+          :state="validateState('lastName')" 
+        ></b-form-input>
+        <!-- <b-form-invalid-feedback v-if="!$v.form.firstName.required">
+          Username is required
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-else-if="!$v.form.username.length">
+          Username length should be between 3-8 characters long
+        </b-form-invalid-feedback> -->
+        <b-form-invalid-feedback v-if="!$v.form.lastName.alpha">
+          Last name may only contain alphabetic characters
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+      <!-- country -->
       <b-form-group
         id="input-group-country"
         label-cols-sm="3"
@@ -42,6 +92,7 @@
         </b-form-invalid-feedback>
       </b-form-group>
 
+      <!-- password -->
       <b-form-group
         id="input-group-Password"
         label-cols-sm="3"
@@ -59,15 +110,23 @@
         </b-form-invalid-feedback>
         <b-form-text v-else-if="$v.form.password.$error" text-variant="info">
           Your password should be <strong>strong</strong>. <br />
-          For that, your password should be also:
+          For that, your password should also:
         </b-form-text>
         <b-form-invalid-feedback
-          v-if="$v.form.password.required && !$v.form.password.length"
-        >
+          v-if="$v.form.password.required && !$v.form.password.length">
           Have length between 5-10 characters long
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback
+          v-if="$v.form.password.required && !$v.form.password.containsNumber">
+          Contain at least one number
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback
+          v-if="$v.form.password.required && !$v.form.password.containsSpecial">
+          Contain at least one specail character (#,?,!,@,$,%,^,&,*,-)
         </b-form-invalid-feedback>
       </b-form-group>
 
+      <!-- confirm password -->
       <b-form-group
         id="input-group-confirmedPassword"
         label-cols-sm="3"
@@ -88,6 +147,32 @@
         >
           The confirmed password is not equal to the original password
         </b-form-invalid-feedback>
+      </b-form-group>
+
+      <!-- email -->
+      <b-form-group
+        id="input-group-Password"
+        label-cols-sm="3"
+        label="E-mail:"
+        label-for="email"
+      >
+        <b-form-input
+          id="email"
+          type="email"
+          v-model="$v.form.email.$model"
+          :state="validateState('email')"
+        ></b-form-input>
+       <b-form-invalid-feedback v-if="!$v.form.email.email">
+          Please enter valid E-mail
+        </b-form-invalid-feedback>
+         <!-- <b-form-text v-else-if="$v.form.password.$error" text-variant="info">
+          Your password should be <strong>strong</strong>. <br />
+          For that, your password should also:
+        </b-form-text>
+        <b-form-invalid-feedback
+          v-if="$v.form.password.required && !$v.form.password.length">
+          Have length between 5-10 characters long
+        </b-form-invalid-feedback> -->
       </b-form-group>
 
       <b-button type="reset" variant="danger">Reset</b-button>
@@ -156,16 +241,32 @@ export default {
         length: (u) => minLength(3)(u) && maxLength(8)(u),
         alpha
       },
+      firstName: {
+        alpha
+      },
+      lastName: {
+        alpha
+      },
       country: {
         required
       },
       password: {
         required,
-        length: (p) => minLength(5)(p) && maxLength(10)(p)
+        length: (p) => minLength(5)(p) && maxLength(10)(p),
+        containsNumber: function(p) {
+          return /[0-9]/.test(p)
+        },
+        containsSpecial: function(p) {
+          return /[#?!@$%^&*-]/.test(p)
+        }
       },
       confirmedPassword: {
         required,
-        sameAsPassword: sameAs("password")
+        sameAsPassword: sameAs("password"),
+      }, 
+      email:
+      {
+        email
       }
     }
   },
@@ -191,19 +292,19 @@ export default {
           }
         );
         this.$router.push("/login");
-        // console.log(response);
+        console.log(response);
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;
       }
     },
     onRegister() {
-      // console.log("register method called");
+      console.log("register method called");
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
       }
-      // console.log("register method go");
+      console.log("register method go");
       this.Register();
     },
     onReset() {

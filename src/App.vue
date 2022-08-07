@@ -21,7 +21,18 @@
 export default {
   name: "App",
   methods: {
-    Logout() {
+    async Logout() {
+      try {
+        
+        const response = await this.axios.post(
+          this.$root.store.server_domain +"/Logout"
+        );
+        // console.log(response);
+      } catch (err) {
+        console.log(err.response);
+        this.form.submitError = err.response.data.message;
+      }
+
       this.$root.store.logout();
       this.$root.toast("Logout", "User logged out successfully", "success");
 
