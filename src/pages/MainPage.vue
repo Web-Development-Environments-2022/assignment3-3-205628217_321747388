@@ -5,12 +5,12 @@
     <b-container>
       <b-row>
         <b-col>
-          <RecipePreviewList title="Explore this recipes" class="RandomRecipes center" />
-          <b-button v-on:click="a">More</b-button>
+          <RecipePreviewList ref="random" title="Explore this recipes" class="RandomRecipes center" />
+          <b-button v-on:click="$refs.random.updateRecipes()">More</b-button>
           <!-- <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
           {{ !$root.store.username }} -->
         </b-col>
-        
+
         <b-col>
           <LoginPage v-if="!$root.store.username"></LoginPage>
           <RecipePreviewList v-else
@@ -40,12 +40,6 @@ export default {
   components: {
     RecipePreviewList,
     LoginPage
-},
-  methods: {
-    a: function () {
-      alert("a")
-      // return this.RecipePreviewList
-    }
 }
 };
 </script>
