@@ -302,7 +302,6 @@ export default {
         const response = await this.axios.post(
           // "https://test-for-3-2.herokuapp.com/user/Register",
           this.$root.store.server_domain + "/recipes/createRecipe",
-          {},
           {
             title: this.form.name,
             readyInMinutes: this.form.readyInMinutes,
@@ -324,6 +323,8 @@ export default {
     },
     onSubmit() {
       console.log("register method called");
+      console.log(this.name)
+      console.log(this.servings)
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
