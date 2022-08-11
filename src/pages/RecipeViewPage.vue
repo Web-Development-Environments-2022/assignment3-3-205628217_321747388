@@ -103,6 +103,21 @@ export default {
     } catch (error) {
       console.log(error);
     }
+    
+    // viewd:
+    try {
+      let recipeId = this.$route.params.recipeId;
+      const response = await this.axios.post(
+        this.$root.store.server_domain + "/users/viewed",
+        {
+          recipeId: recipeId
+        }
+      );
+      console.log("response.status", response.status);
+
+    } catch (error) {
+      console.log(error);
+    }
   }
 };
 </script>

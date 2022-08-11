@@ -14,6 +14,7 @@
         <b-col>
           <LoginPage v-if="!$root.store.username"></LoginPage>
           <RecipePreviewList v-else
+            ref = "viewed"
             title="Last Viewed Recipes"
             :class="{
               RandomRecipes: true,
@@ -39,8 +40,12 @@ import LoginPage from "./LoginPage.vue";
 export default {
   components: {
     RecipePreviewList,
-    LoginPage
-}
+    LoginPage 
+  },
+  mounted() {
+    this.$refs.random.updateRecipes();
+    this.$refs.viewed.updateViewedRecipes();
+  },
 };
 </script>
 
