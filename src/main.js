@@ -3,6 +3,10 @@ import App from "./App.vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
 axios.defaults.withCredentials = true;
+<<<<<<< HEAD
+
+=======
+>>>>>>> 9f8ba0ce2e90441697df0e7652097271de31e752
 import routes from "./routes";
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
