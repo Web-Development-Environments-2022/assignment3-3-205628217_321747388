@@ -2,179 +2,89 @@
   <div class="container">
     <h1 class="title">Search Page</h1>
 
-    <b-form @submit.prevent="onRegister" @reset.prevent="onReset">
-      <!-- username -->
+    <b-form @submit.prevent="onSearch" @reset.prevent="onReset">
+      <!-- Query -->
       <b-form-group
-        id="input-group-username"
+        id="search-query"
         label-cols-sm="3"
-        label="Username:"
-        label-for="username"
+        label="Search:"
+        label-for="search"
       >
         <b-form-input
-          id="username"
-          v-model="$v.form.username.$model"
+          id="search"
+          v-model="$v.form.search.$model"
           type="text"
-          :state="validateState('username')"
+          :state="validateState('search')"
         ></b-form-input>
-        <b-form-invalid-feedback v-if="!$v.form.username.required">
-          Username is required
+        <b-form-invalid-feedback v-if="!$v.form.search.required">
+          Please provide query
         </b-form-invalid-feedback>
-        <b-form-invalid-feedback v-else-if="!$v.form.username.length">
-          Username length should be between 3-8 characters long
-        </b-form-invalid-feedback>
-        <b-form-invalid-feedback v-if="!$v.form.username.alpha">
-          Username may only contain alphabetic characters
+        <b-form-invalid-feedback v-if="!$v.form.search.length">
+          Query shoult not be over 300 characters
         </b-form-invalid-feedback>
       </b-form-group>
 
-      <!-- first name -->
+      <!-- Number of results -->
       <b-form-group
-        id="input-group-firstname"
+        id="number"
         label-cols-sm="3"
-        label="First Name:"
-        label-for="firstName"
-      >
-        <b-form-input
-          id="firstName"
-          v-model="$v.form.firstName.$model"
-          type="text"
-          :state="validateState('firstName')" 
-        ></b-form-input>
-        <!-- <b-form-invalid-feedback v-if="!$v.form.firstName.required">
-          Username is required
-        </b-form-invalid-feedback>
-        <b-form-invalid-feedback v-else-if="!$v.form.username.length">
-          Username length should be between 3-8 characters long
-        </b-form-invalid-feedback> -->
-        <b-form-invalid-feedback v-if="!$v.form.firstName.alpha">
-          First name may only contain alphabetic characters
-        </b-form-invalid-feedback>
-      </b-form-group>
-
-      <!-- last name -->
-      <b-form-group
-        id="input-group-lastname"
-        label-cols-sm="3"
-        label="Last Name:"
-        label-for="lastName"
-      >
-        <b-form-input
-          id="lastName"
-          v-model="$v.form.lastName.$model"
-          type="text"
-          :state="validateState('lastName')" 
-        ></b-form-input>
-        <!-- <b-form-invalid-feedback v-if="!$v.form.firstName.required">
-          Username is required
-        </b-form-invalid-feedback>
-        <b-form-invalid-feedback v-else-if="!$v.form.username.length">
-          Username length should be between 3-8 characters long
-        </b-form-invalid-feedback> -->
-        <b-form-invalid-feedback v-if="!$v.form.lastName.alpha">
-          Last name may only contain alphabetic characters
-        </b-form-invalid-feedback>
-      </b-form-group>
-
-      <!-- country -->
-      <b-form-group
-        id="input-group-country"
-        label-cols-sm="3"
-        label="Country:"
-        label-for="country"
+        label="Max number of results:"
+        label-for="number"
       >
         <b-form-select
-          id="country"
-          v-model="$v.form.country.$model"
-          :options="countries"
-          :state="validateState('country')"
+          id="number"
+          v-model="$v.form.number.$model"
+          :options="options"
+          :state="validateState('number')"
         ></b-form-select>
-        <b-form-invalid-feedback>
-          Country is required
-        </b-form-invalid-feedback>
       </b-form-group>
 
-      <!-- password -->
+      
+      <!-- Cuisine -->
       <b-form-group
-        id="input-group-Password"
+        id="choose-cuisine"
         label-cols-sm="3"
-        label="Password:"
-        label-for="password"
+        label="Cuisine:"
+        label-for="cuisine"
       >
-        <b-form-input
-          id="password"
-          type="password"
-          v-model="$v.form.password.$model"
-          :state="validateState('password')"
-        ></b-form-input>
-        <b-form-invalid-feedback v-if="!$v.form.password.required">
-          Password is required
-        </b-form-invalid-feedback>
-        <b-form-text v-else-if="$v.form.password.$error" text-variant="info">
-          Your password should be <strong>strong</strong>. <br />
-          For that, your password should also:
-        </b-form-text>
-        <b-form-invalid-feedback
-          v-if="$v.form.password.required && !$v.form.password.length">
-          Have length between 5-10 characters long
-        </b-form-invalid-feedback>
-        <b-form-invalid-feedback
-          v-if="$v.form.password.required && !$v.form.password.containsNumber">
-          Contain at least one number
-        </b-form-invalid-feedback>
-        <b-form-invalid-feedback
-          v-if="$v.form.password.required && !$v.form.password.containsSpecial">
-          Contain at least one specail character (#,?,!,@,$,%,^,&,*,-)
-        </b-form-invalid-feedback>
+        <b-form-select
+          id="cuisine"
+          v-model="$v.form.cuisine.$model"
+          :options="cuisines"
+          :state="validateState('cuisine')"
+        ></b-form-select>
       </b-form-group>
 
-      <!-- confirm password -->
+      <!-- Diet -->
       <b-form-group
-        id="input-group-confirmedPassword"
+        id="choose-diet"
         label-cols-sm="3"
-        label="Confirm Password:"
-        label-for="confirmedPassword"
+        label="Diet:"
+        label-for="diet"
       >
-        <b-form-input
-          id="confirmedPassword"
-          type="password"
-          v-model="$v.form.confirmedPassword.$model"
-          :state="validateState('confirmedPassword')"
-        ></b-form-input>
-        <b-form-invalid-feedback v-if="!$v.form.confirmedPassword.required">
-          Password confirmation is required
-        </b-form-invalid-feedback>
-        <b-form-invalid-feedback
-          v-else-if="!$v.form.confirmedPassword.sameAsPassword"
-        >
-          The confirmed password is not equal to the original password
-        </b-form-invalid-feedback>
+        <b-form-select
+          id="diet"
+          v-model="$v.form.diet.$model"
+          :options="diets"
+          :state="validateState('diet')"
+        ></b-form-select>
       </b-form-group>
 
-      <!-- email -->
+      <!-- Intolerances -->
       <b-form-group
-        id="input-group-Password"
+        id="choose-intolerance"
         label-cols-sm="3"
-        label="E-mail:"
-        label-for="email"
+        label="Intolerances:"
+        label-for="intolerance"
       >
-        <b-form-input
-          id="email"
-          type="email"
-          v-model="$v.form.email.$model"
-          :state="validateState('email')"
-        ></b-form-input>
-       <b-form-invalid-feedback v-if="!$v.form.email.email">
-          Please enter valid E-mail
-        </b-form-invalid-feedback>
-         <!-- <b-form-text v-else-if="$v.form.password.$error" text-variant="info">
-          Your password should be <strong>strong</strong>. <br />
-          For that, your password should also:
-        </b-form-text>
-        <b-form-invalid-feedback
-          v-if="$v.form.password.required && !$v.form.password.length">
-          Have length between 5-10 characters long
-        </b-form-invalid-feedback> -->
+        <b-form-select
+          id="intolerance"
+          v-model="$v.form.intolerance.$model"
+          :options="intolerances"
+          :state="validateState('intolerance')"
+        ></b-form-select>
       </b-form-group>
+
 
       <b-button type="reset" variant="danger">Reset</b-button>
       <b-button
@@ -182,12 +92,7 @@
         variant="primary"
         style="width:250px;"
         class="ml-5 w-75"
-        >Register</b-button
-      >
-      <div class="mt-2">
-        You have an account already?
-        <router-link to="login"> Log in here</router-link>
-      </div>
+        >Search</b-button>
     </b-form>
     <b-alert
       class="mt-2"
@@ -198,121 +103,133 @@
     >
       Register failed: {{ form.submitError }}
     </b-alert>
+
+    <!-- {{ search_results }} -->
+    <!-- <b-col v-for="r in search_results" :key="r.id">
+        <RecipePreview class="recipePreview" :recipe="r" />
+    </b-col> -->
+    <RecipePreviewList ref="res" title="Explore this recipes" class="RandomRecipes center" />
+
   </div>
 </template>
 
 <script>
-import countries from "../assets/countries";
+import RecipePreviewList from "../components/RecipePreviewList";
+// import RecipePreview from "../components/RecipePreview.vue";
 import {
   required,
-  minLength,
   maxLength,
-  alpha,
-  sameAs,
-  email
 } from "vuelidate/lib/validators";
-
 export default {
-  name: "Register",
+  name: "Search",
+  components: {
+  RecipePreviewList,
+  // RecipePreview
+},
   data() {
     return {
       form: {
-        username: "",
-        firstName: "",
-        lastName: "",
-        country: null,
-        password: "",
-        confirmedPassword: "",
-        email: "",
-        submitError: undefined
+        search: "",
+        number: "5",
+        cuisine: "",
+        diet: "",
+        intolerance:""
       },
-      countries: [{ value: null, text: "", disabled: true }],
+      options: [{ value: "5", text: "5"}, { value: "10", text: "10"}, { value: "15", text: "15"}],
+
+      cuisines: [{value:"", text: "No preference"}, {value:"African", text:"African"}, {value:"American", text:"American"}, {value:"British", text:"British"}, 
+      {value:"Cajun", text:"Cajun"}, {value:"Caribbean", text:"Caribbean"}, {value:"Chinese", text:"Chinese"}, {value:"Eastern European", text:"Eastern European"},
+      {value:"European", text:"European"}, {value:"French", text:"French"}, {value:"German", text:"German"}, {value:"Greek", text:"Greek"}, {value:"Indian", text:"Indian"},
+      {value:"Irish", text:"Irish"}, {value:"Italian", text:"Italian"}, {value:"Japanese", text:"Japanese"}, {value:"Jewish", text:"Jewish"}, {value:"Korean", text:"Korean"},
+      {value:"Latin American", text:"Latin American"}, {value:"Mediterranean", text:"Mediterranean"}, {value:"Mexican", text:"Mexican"}, {value:"Middle Eastern", text:"Middle Eastern"}, 
+      {value:"Nordic", text:"Nordic"}, {value:"Southern", text:"Southern"}, {value:"Spanish", text:"Spanish"}, {value:"Thai", text:"Thai"}, {value:"Vietnamese", text:"Vietnamese"}],
+
+      diets: [{value:"", text: "No preference"}, {value:"gluten free", text:"Gluten Free"}, {value:"ketogenic", text:"Ketogenic"}, {value:"vegetarian", text:"Vegetarian"}, 
+      {value:"lacto-vegetarian", text:"Lacto-Vegetarian"}, {value:"ovo-vegetarian", text:"Ovo-Vegetarian"}, {value:"vegan", text:"Vegan"}, {value:"pescetarian", text:"Pescetarian"}, 
+      {value:"paleo", text:"Paleo"}, {value:"primal", text:"Primal"}, {value:"low FODMAP", text:"Low FODMAP"}, {value:"whole30", text:"Whole30"}],
+
+      intolerances: [{value:"", text: "No preference"}, {value:"Dairy", text: "Dairy"}, {value:"Egg", text: "Egg"}, {value:"Gluten", text: "Gluten"}, {value:"Grain", text: "Grain"}, 
+      {value:"Peanut", text: "Peanut"}, {value:"Seafood", text: "Seafood"}, {value:"Sesame", text: "Sesame"}, {value:"Shellfish", text: "Shellfish"}, 
+      {value:"Soy", text: "Soy"}, {value:"Sulfite", text: "Sulfite"}, {value:"Tree Nut", text: "Tree Nut"}, {value:"Wheat", text: "Wheat"}],
+
       errors: [],
-      validated: false
+      validated: false,
+      search_results: []
     };
   },
   validations: {
     form: {
-      username: {
+      search: {
         required,
-        length: (u) => minLength(3)(u) && maxLength(8)(u),
-        alpha
+        length: (u) => maxLength(300)(u),
       },
-      firstName: {
-        alpha
+      number:{
+
       },
-      lastName: {
-        alpha
+      cuisine:{
+
       },
-      country: {
-        required
+      diet:{
+
       },
-      password: {
-        required,
-        length: (p) => minLength(5)(p) && maxLength(10)(p),
-        containsNumber: function(p) {
-          return /[0-9]/.test(p)
-        },
-        containsSpecial: function(p) {
-          return /[#?!@$%^&*-]/.test(p)
-        }
-      },
-      confirmedPassword: {
-        required,
-        sameAsPassword: sameAs("password"),
-      }, 
-      email:
-      {
-        email
+      intolerance:{
+
       }
     }
   },
-  mounted() {
-    // console.log("mounted");
-    this.countries.push(...countries);
-    // console.log($v);
-  },
+  // mounted() {
+  // },
   methods: {
     validateState(param) {
       const { $dirty, $error } = this.$v.form[param];
       return $dirty ? !$error : null;
     },
-    async Register() {
+    async Search() {
+      // console.log(this.form.search);
+      // console.log(this.form.results);
+      // console.log(this.form.cuisine);
+      // console.log(this.form.diet);
+      // console.log(this.form.intolerance);
       try {
-        const response = await this.axios.post(
-          // "https://test-for-3-2.herokuapp.com/user/Register",
-          this.$root.store.server_domain + "/Register",
-
+        const response = await this.axios.get(
+          this.$root.store.server_domain + "/recipes/search",
           {
-            username: this.form.username,
-            password: this.form.password
+            params:{
+              searchQuery: this.form.search,
+              num: this.form.number.toString(),
+              cuisine: this.form.cuisine,
+              diet: this.form.diet,
+              intolerances: this.form.intolerance
+            }
+            
           }
         );
-        this.$router.push("/login");
+        this.search_results = response.data;
+        this.$refs.res.pushRecipes(this.search_results);
+
+        // this.$router.push("/login");
         console.log(response);
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;
       }
     },
-    onRegister() {
-      console.log("register method called");
+    onSearch() {
+      console.log("Search method called");
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
       }
-      console.log("register method go");
-      this.Register();
+      console.log("Search method go");
+      this.Search(this.form.search);
     },
     onReset() {
       this.form = {
-        username: "",
-        firstName: "",
-        lastName: "",
-        country: null,
-        password: "",
-        confirmedPassword: "",
-        email: ""
+        search: "",
+        number: "5",
+        cuisine: "",
+        diet: "",
+        intolerance: ""
       };
       this.$nextTick(() => {
         this.$v.$reset();

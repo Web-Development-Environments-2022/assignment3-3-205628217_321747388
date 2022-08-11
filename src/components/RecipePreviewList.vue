@@ -49,8 +49,13 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    pushRecipes(array){
+      this.recipes = [];
+      this.recipes.push(...array);
     }
   }
+
 };
 </script>
 
