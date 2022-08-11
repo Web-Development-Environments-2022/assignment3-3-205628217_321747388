@@ -1,4 +1,5 @@
 <template>
+  <div>
   <router-link
     :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
     class="recipe-preview"
@@ -16,6 +17,10 @@
       </ul>
     </div>
   </router-link>
+    <div>
+      <button v-on:click="markAsFavorite">favorite</button>
+    </div>
+    </div>
 </template>
 
 <script>
@@ -59,6 +64,25 @@ export default {
     //     return undefined;
     //   }
     // }
+  },
+  methods: {
+    async markAsFavorite() {
+      try {
+      let recipeId = this.$route.params.recipeId;
+      console.log(recipeId);
+      const response = await this.axios.post(
+        this.$root.store.server_domain + "/users/favorites",
+        {
+          recipeId: recipeId
+        }
+      );
+      console.log("response.status", response.status);
+      this.$root.toast("Favorite", "The Recipe successfully saved as favorite", "success");
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
 };
 </script>

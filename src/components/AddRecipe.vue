@@ -316,6 +316,9 @@ export default {
         );
         //this.$router.push("/login");
         console.log(response);
+        this.$bvModal.hide("add-recipe-modal")
+        this.$root.toast("Add Recipe", "Recipe added", "success");
+
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;
