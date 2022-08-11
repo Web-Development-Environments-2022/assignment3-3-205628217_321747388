@@ -53,6 +53,38 @@ export default {
     pushRecipes(array){
       this.recipes = [];
       this.recipes.push(...array);
+    },
+
+    async updateViewedRecipes() {
+      try {
+        const response = await this.axios.get(
+          this.$root.store.server_domain + "/users/viewed",
+          // "https://test-for-3-2.herokuapp.com/recipes/random"
+        );
+        console.log(response);
+        const recipes = response.data;
+        this.recipes = [];
+        this.recipes.push(...recipes);
+        console.log(this.recipes);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    
+    async updateMyRecipes() {
+      try {
+        const response = await this.axios.get(
+          this.$root.store.server_domain + "/users/myRecipes",
+          // "https://test-for-3-2.herokuapp.com/recipes/random"
+        );
+        console.log(response);
+        const recipes = response.data;
+        this.recipes = [];
+        this.recipes.push(...recipes);
+        console.log(this.recipes);
+      } catch (error) {
+        console.log(error);
+      }
     }
 
   }
