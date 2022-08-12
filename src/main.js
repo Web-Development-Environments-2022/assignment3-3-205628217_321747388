@@ -75,6 +75,8 @@ Vue.config.productionTip = false;
 const shared_data = {
   username: localStorage.username,
   server_domain: "http://localhost:3000",
+  favorite_list: localStorage.favorite_list,
+  viewed_list: localStorage.viewed_list,
   login(username) {
     localStorage.setItem("username", username);
     this.username = username;
@@ -84,7 +86,19 @@ const shared_data = {
     console.log("logout");
     localStorage.removeItem("username");
     this.username = undefined;
+    this.favorite_list = [];
+    this.viewed_list = [];
   },
+  updateFavoriteList(favorite_list) {
+    localStorage.setItem("favorite_list", favorite_list);
+    this.favorite_list = favorite_list;
+  },
+  updateViewedList(viewed_list) {
+    console.log("updateViewedList")
+    localStorage.setItem("viewed_list", viewed_list);
+    this.viewed_list = viewed_list;
+    console.log(this.viewed_list)
+  }
 
 };
 console.log(shared_data);
