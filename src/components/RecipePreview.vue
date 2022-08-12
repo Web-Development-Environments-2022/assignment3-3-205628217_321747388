@@ -1,26 +1,33 @@
 <template>
   <div>
-  <router-link
-    :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
-    class="recipe-preview"
-  >
-    <div class="recipe-body">
-      <img v-if="image_load" :src="recipe.image" class="recipe-image" />
-    </div>
-    <div class="recipe-footer">
-      <div :title="recipe.title" class="recipe-title">
-        {{ recipe.title }}
+    <router-link
+      :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
+      class="recipe-preview"
+    >
+      <div class="recipe-body">
+        <img v-if="image_load" :src="recipe.image" class="recipe-image" />
       </div>
-      <ul class="recipe-overview">
-        <li>{{ recipe.readyInMinutes }} minutes</li>
-        <li>{{ recipe.aggregateLikes }} likes</li>
-      </ul>
+      <!-- <br/> -->
+      <div class="recipe-footer">
+        <div :title="recipe.title" class="recipe-title">
+          {{ recipe.title }}
+        </div>
+        <ul class="recipe-overview">
+          <li>{{ recipe.readyInMinutes }} minutes</li>
+          <li>{{ recipe.popularity }} likes</li>
+          <li v-if="recipe.vegan">vegan</li>
+          <li v-if="recipe.vegetarian">vegetarian</li>
+          <li v-if="recipe.glutenFree">gluten free</li>
+        </ul>
+      </div>
+    </router-link>
+    <div v-if="viewed">
+      viewed
     </div>
-  </router-link>
-    <div>
+    <div v-if="!favorite">
       <button v-on:click="markAsFavorite">favorite</button>
     </div>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -29,10 +36,14 @@ export default {
     this.axios.get(this.recipe.image).then((i) => {
       this.image_load = true;
     });
+    this.checkViewed();
+    this.checkfavorite();
   },
   data() {
     return {
-      image_load: false
+      image_load: false,
+      viewed: false,
+      favorite: false
     };
   },
   props: {
@@ -68,8 +79,8 @@ export default {
   methods: {
     async markAsFavorite() {
       try {
-      let recipeId = this.$route.params.recipeId;
-      console.log(recipeId);
+      let recipeId = this.recipe.id;
+      // console.log(recipeId);
       const response = await this.axios.post(
         this.$root.store.server_domain + "/users/favorites",
         {
@@ -81,6 +92,26 @@ export default {
 
       } catch (error) {
         console.log(error);
+      }
+    },
+    checkViewed() {
+      let recipeId = this.recipe.id;
+      let viewed_list = this.$root.store.viewed_list;
+      for (let i = 0; i < viewed_list.length; i++){
+        if (recipeId == viewed_list[i].id) {
+          this.viewed = true;
+          break;
+        }
+      }
+    },
+    checkfavorite() {
+      let recipeId = this.recipe.id;
+      let favorite_list = this.$root.store.favorite_list;
+      for (let i = 0; i < favorite_list.length; i++){
+        if (recipeId == favorite_list[i].id) {
+          this.favorite = true;
+          break;
+        }
       }
     }
   }
