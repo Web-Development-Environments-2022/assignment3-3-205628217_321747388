@@ -2,7 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 
 import routes from "./routes";
 import VueRouter from "vue-router";
@@ -75,6 +75,7 @@ Vue.config.productionTip = false;
 const shared_data = {
   username: localStorage.username,
   server_domain: "http://localhost:3000",
+  lastSearch: sessionStorage.lastSearch,
   login(username) {
     localStorage.setItem("username", username);
     this.username = username;
@@ -83,8 +84,14 @@ const shared_data = {
   logout() {
     console.log("logout");
     localStorage.removeItem("username");
+    sessionStorage.removeItem("lastSearch");
     this.username = undefined;
+    this.last_search = undefined;
   },
+  setLastSearch(searchDetails){
+    this.lastSearch = searchDetails;
+    sessionStorage.setItem("lastSearch", this.lastSearch);
+  }
 
 };
 console.log(shared_data);

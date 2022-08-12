@@ -185,18 +185,13 @@ export default {
       return $dirty ? !$error : null;
     },
     async Search() {
-      // console.log(this.form.search);
-      // console.log(this.form.results);
-      // console.log(this.form.cuisine);
-      // console.log(this.form.diet);
-      // console.log(this.form.intolerance);
       try {
         const response = await this.axios.get(
           this.$root.store.server_domain + "/recipes/search",
           {
             params:{
               searchQuery: this.form.search,
-              num: this.form.number.toString(),
+              num: this.form.number,
               cuisine: this.form.cuisine,
               diet: this.form.diet,
               intolerances: this.form.intolerance
@@ -206,9 +201,19 @@ export default {
         );
         this.search_results = response.data;
         this.$refs.res.pushRecipes(this.search_results);
+        // console.log(response);
 
-        // this.$router.push("/login");
-        console.log(response);
+        // Set last search
+        this.$root.store.setLastSearch(JSON.stringify({
+          search: this.form.search,
+          number: this.form.number,
+          cuisine: this.form.cuisine,
+          diet: this.form.diet,
+          intolerance: this.form.intolerance,
+          search_results: this.search_results
+        }));
+        // console.log(JSON.parse(this.$root.store.lastSearch));
+        
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;
@@ -234,7 +239,32 @@ export default {
       this.$nextTick(() => {
         this.$v.$reset();
       });
-    }
+    },
+    getLastSearch(){
+      var searchData = JSON.parse(this.$root.store.lastSearch);
+      this.form.search = searchData.search,
+      this.form.number = searchData.number,
+      this.form.cuisine = searchData.cuisine,
+      this.form.diet = searchData.diet,
+      this.form.intolerance = searchData.intolerance,
+      this.search_results = searchData.search_results
+    },
+
+  },
+  mounted(){
+  //   this.$nextTick(function () {
+  //     if(this.$root.store.lastSearch){
+  //       this.getLastSearch();
+  //     }
+  // })
+  if(this.$root.store.username){
+    if(this.$root.store.lastSearch){
+        this.getLastSearch();
+        this.$refs.res.pushRecipes(this.search_results);
+
+      }
+  }
+  
   }
 };
 </script>
