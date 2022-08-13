@@ -108,11 +108,14 @@
     <!-- <b-col v-for="r in search_results" :key="r.id">
         <RecipePreview class="recipePreview" :recipe="r" />
     </b-col> -->
-    <RecipePreviewList ref="res" title="Search Results" class="RandomRecipes center" />
     <b-dropdown id="sort" v-if="!isEmpty" text="Sort By" class="m-md-2">
       <b-dropdown-item v-on:click="this.sortByPrepTime">Preperation Time</b-dropdown-item>
       <b-dropdown-item v-on:click="this.sortByPopularity">Popularity</b-dropdown-item>
     </b-dropdown>
+    <h5 v-if="noResults">We couldn't find recipes to match your search</h5>
+    <RecipePreviewList ref="res" title="Search Results" class="RandomRecipes center" />
+    
+    
     
 
   </div>
@@ -159,7 +162,8 @@ export default {
 
       errors: [],
       validated: false,
-      search_results: []
+      search_results: [],
+      noResults: false
     };
   },
   validations: {
@@ -211,7 +215,12 @@ export default {
         // let sorted = this.sortByPopularity();
         // let sorted = this.sortByPrepTime;
         // console.log(sorted);
-        this.$refs.res.pushRecipes(this.search_results);
+        if(!this.isEmpty){
+                  this.$refs.res.pushRecipes(this.search_results);
+        }
+        else{
+          this.noResults = true;
+        }
         // console.log(response);
 
         // Set last search
@@ -231,6 +240,7 @@ export default {
       }
     },
     onSearch() {
+      this.noResults = false;
       console.log("Search method called");
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
@@ -245,7 +255,8 @@ export default {
         number: "5",
         cuisine: "",
         diet: "",
-        intolerance: ""
+        intolerance: "",
+        noResults: false
       };
       this.$nextTick(() => {
         this.$v.$reset();
