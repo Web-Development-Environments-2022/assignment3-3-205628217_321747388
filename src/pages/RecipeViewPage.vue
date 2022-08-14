@@ -118,6 +118,21 @@ export default {
     } catch (error) {
       console.log(error);
     }
+
+    try {
+        const response = await this.axios.get(
+          this.$root.store.server_domain + "/users/viewed",
+          // "https://test-for-3-2.herokuapp.com/recipes/random"
+        );
+        console.log(response);
+        const recipes = response.data;
+        let recipes_list = [];
+        recipes_list.push(...recipes);
+        console.log(recipes_list);
+        this.$root.store.updateViewedList(recipes_list);
+      } catch (error) {
+        console.log(error);
+      }
   }
 };
 </script>

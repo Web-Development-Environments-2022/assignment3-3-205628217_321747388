@@ -5,7 +5,8 @@
       class="recipe-preview"
     >
       <div class="recipe-body">
-        <img v-if="image_load" :src="recipe.image" class="recipe-image" />
+        <!-- <img v-if="image_load" :src="recipe.image" class="recipe-image" /> -->
+        <img :src="recipe.image" class="recipe-image" />
       </div>
       <!-- <br/> -->
       <div class="recipe-footer">
@@ -33,15 +34,15 @@
 <script>
 export default {
   mounted() {
-    this.axios.get(this.recipe.image).then((i) => {
-      this.image_load = true;
-    });
+    // this.axios.get(this.recipe.image).then((i) => {
+    //   this.image_load = true;
+    // });
     this.checkViewed();
     this.checkfavorite();
   },
   data() {
     return {
-      image_load: false,
+      // image_load: false,
       viewed: false,
       favorite: false
     };
@@ -90,6 +91,21 @@ export default {
       console.log("response.status", response.status);
       this.$root.toast("Favorite", "The Recipe successfully saved as favorite", "success");
 
+      } catch (error) {
+        console.log(error);
+      }
+
+      try {
+        const response = await this.axios.get(
+          this.$root.store.server_domain + "/users/favorites",
+          // "https://test-for-3-2.herokuapp.com/recipes/random"
+        );
+        console.log(response);
+        const recipes = response.data;
+        let recipes_list = [];
+        recipes_list.push(...recipes);
+        console.log(recipes_list);
+        this.$root.store.updateFavoriteList(recipes_list);
       } catch (error) {
         console.log(error);
       }

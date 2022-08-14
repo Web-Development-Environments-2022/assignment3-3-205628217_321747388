@@ -111,6 +111,7 @@ export default {
         this.$root.store.login(this.form.username);
         this.$router.push("/");
         this.updateViewed();
+        this.updateFavorite();
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;
@@ -139,6 +140,22 @@ export default {
         this.recipes.push(...recipes);
         console.log(this.recipes);
         this.$root.store.updateViewedList(this.recipes);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async updateFavorite() {
+      try {
+        const response = await this.axios.get(
+          this.$root.store.server_domain + "/users/favorites",
+          // "https://test-for-3-2.herokuapp.com/recipes/random"
+        );
+        console.log(response);
+        const recipes = response.data;
+        this.recipes = [];
+        this.recipes.push(...recipes);
+        console.log(this.recipes);
+        this.$root.store.updateFavoriteList(this.recipes);
       } catch (error) {
         console.log(error);
       }
