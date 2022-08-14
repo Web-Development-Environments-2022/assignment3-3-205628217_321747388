@@ -101,14 +101,22 @@
       dismissible
       show
     >
-      Register failed: {{ form.submitError }}
+      Search failed: {{ form.submitError }}
     </b-alert>
 
     <!-- {{ search_results }} -->
     <!-- <b-col v-for="r in search_results" :key="r.id">
         <RecipePreview class="recipePreview" :recipe="r" />
     </b-col> -->
-    <RecipePreviewList ref="res" title="Explore this recipes" class="RandomRecipes center" />
+    <b-dropdown id="sort" v-if="!isEmpty" text="Sort By" class="m-md-2">
+      <b-dropdown-item v-on:click="this.sortByPrepTime">Preperation Time</b-dropdown-item>
+      <b-dropdown-item v-on:click="this.sortByPopularity">Popularity</b-dropdown-item>
+    </b-dropdown>
+    <h5 v-if="noResults">We couldn't find recipes to match your search</h5>
+    <RecipePreviewList ref="res" title="Search Results" class="RandomRecipes center" />
+    
+    
+    
 
   </div>
 </template>
@@ -154,7 +162,8 @@ export default {
 
       errors: [],
       validated: false,
-      search_results: []
+      search_results: [],
+      noResults: false
     };
   },
   validations: {
@@ -200,7 +209,18 @@ export default {
           }
         );
         this.search_results = response.data;
-        this.$refs.res.pushRecipes(this.search_results);
+        // console.log("b4 sort call");
+        console.log(this.search_results);
+        // let sorted = this.sortByPrepTime();
+        // let sorted = this.sortByPopularity();
+        // let sorted = this.sortByPrepTime;
+        // console.log(sorted);
+        if(!this.isEmpty){
+                  this.$refs.res.pushRecipes(this.search_results);
+        }
+        else{
+          this.noResults = true;
+        }
         // console.log(response);
 
         // Set last search
@@ -220,6 +240,7 @@ export default {
       }
     },
     onSearch() {
+      this.noResults = false;
       console.log("Search method called");
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
@@ -234,7 +255,8 @@ export default {
         number: "5",
         cuisine: "",
         diet: "",
-        intolerance: ""
+        intolerance: "",
+        noResults: false
       };
       this.$nextTick(() => {
         this.$v.$reset();
@@ -249,23 +271,36 @@ export default {
       this.form.intolerance = searchData.intolerance,
       this.search_results = searchData.search_results
     },
+    sortByPrepTime(){
+      // console.log("in sort");
+      // console.log(this.search_results);
+      // return this.search_results.sort((a,b) => {a.readyInMinutes - b.readyInMinutes})
+      return this.$refs.res.pushRecipes(this.search_results.sort(function(a,b){
+          return a.readyInMinutes - b.readyInMinutes;
+        }))
+    },
+    sortByPopularity(){
+      // return this.search_results.sort((a,b) => {b.popularity - a.popularity})
+      return this.$refs.res.pushRecipes(this.search_results.sort(function(a,b){
+          return b.popularity - a.popularity;
+        }))
+
+    }
 
   },
   mounted(){
-  //   this.$nextTick(function () {
-  //     if(this.$root.store.lastSearch){
-  //       this.getLastSearch();
-  //     }
-  // })
-  if(this.$root.store.username){
-    if(this.$root.store.lastSearch){
-        this.getLastSearch();
-        this.$refs.res.pushRecipes(this.search_results);
+    if(this.$root.store.username){
+      if(this.$root.store.lastSearch){
+          this.getLastSearch();
+          this.$refs.res.pushRecipes(this.search_results);
 
-      }
-  }
-  
-  }
+        }
+    }
+  },
+  computed: {
+    isEmpty: ({ search_results }) => search_results.length === 0
+  },  
+
 };
 </script>
 
