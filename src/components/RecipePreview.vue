@@ -56,8 +56,10 @@ export default {
     // this.axios.get(this.recipe.image).then((i) => {
     //   this.image_load = true;
     // });
-    this.checkViewed();
-    this.checkfavorite();
+    if (this.$root.store.username) {
+      this.checkViewed();
+      this.checkfavorite();
+    }
   },
   data() {
     return {
