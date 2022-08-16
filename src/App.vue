@@ -18,8 +18,10 @@
           </b-navbar-nav>
           <b-navbar-nav class="ml-auto" v-else>
             <b-nav-text id="hello">Hello {{ $root.store.username }}!</b-nav-text>
-            <b-nav-item :to="{ name: 'addRecipe' }">Add Recipe</b-nav-item>
+            <!-- <b-nav-item :to="{ name: 'addRecipe' }">Add Recipe</b-nav-item> -->
             <!-- <b-button v-b-modal.modal-1>Add Recipe</b-button> -->
+            <!-- <router-link tag="li" :to="{name: 'addRecipe'}" id="modal-link" class="nav-link">Add Recipe</router-link> -->
+            <b-nav-item :to="{name: 'addRecipe'}" id="modal-link" class="nav-link">Add Recipe</b-nav-item>
             <b-nav-item-dropdown text="Personal Recipes" right>
               <b-dropdown-item :to="{ name: 'favorites' }">Favorites</b-dropdown-item>
               <b-dropdown-item :to="{ name: 'myRecipes' }">My Recipes</b-dropdown-item>
@@ -94,6 +96,8 @@ export default {
   color: white;
   font-size: larger;
   font-weight: bold;
+  padding: 7px;
+
 }
 
 // .nav-text{
@@ -112,12 +116,16 @@ export default {
   color: white;
   font-size: larger;
   font-weight: 500;
+  padding: 7px;
+  padding-top: 14px;
+
 
 }
 
 #nav a{
   font-weight:500;
   color:white;
+  padding: 7px;
 
 }
 
@@ -130,6 +138,10 @@ export default {
   color: #fef5a2;
   // font-stretch: condensed;
   
+}
+
+#modal-link{
+  padding: 7px;
 }
 
 // #nav a.router-link-exact-active {

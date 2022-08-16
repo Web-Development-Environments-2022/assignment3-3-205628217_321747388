@@ -1,14 +1,15 @@
 <template>
   <div class="container">
-    <b-button v-b-modal.add-recipe-modal>Open Modal</b-button>
+    <!-- <b-button v-b-modal.add-recipe-modal>Open Modal</b-button> -->
 
     <b-modal
-      id="add-recipe-modal"
-      ref="modal"
+      id="recipe-modal"
+      ref="recipe-modal"
       title="Add New Recipe"
       hide-footer
       @show="resetModal"
       @hidden="resetModal"
+      @hide="exit"
     >
     <b-form @submit.prevent="onSubmit" @reset.prevent="onReset">
       <!-- Recipe Name -->
@@ -291,6 +292,7 @@ export default {
   mounted() {
     // console.log("mounted");
     // console.log($v);
+    this.$bvModal.show('recipe-modal');
   },
   methods: {
     validateState(param) {
@@ -318,6 +320,7 @@ export default {
         console.log(response);
         this.$bvModal.hide("add-recipe-modal")
         this.$root.toast("Add Recipe", "Recipe added", "success");
+        this.$router.back();
 
       } catch (err) {
         console.log(err.response);
@@ -354,6 +357,14 @@ export default {
     resetModal() {
         this.onReset();
     },
+    exit(bvModalEvt){
+      if (confirm("If you exit, your recipe will be lost")){
+        this.$router.back();
+      }
+      else{
+        bvModalEvt.preventDefault();
+      }
+    }
   }
 };
 </script>

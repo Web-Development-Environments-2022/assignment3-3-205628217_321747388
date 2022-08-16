@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <!-- <div>
     <router-link
       :to="{ name: 'recipe', params: { recipeId: recipe.id, favorite: favorite, vegan: recipe.vegan, vegetarian: recipe.vegetarian, glutenFree: recipe.glutenFree, myRecipe: myRecipe} }"
       class="recipe-preview"
     >
-      <div class="recipe-body">
+      <div class="recipe-body"> -->
         <!-- <img v-if="image_load" :src="recipe.image" class="recipe-image" /> -->
-        <img :src="recipe.image" class="recipe-image" />
+        <!-- <img :src="recipe.image" class="recipe-image" />
       </div>
       <div class="recipe-footer">
         <div :title="recipe.title" class="recipe-title">
@@ -20,17 +20,68 @@
           <li v-if="recipe.glutenFree">gluten free</li>
         </ul>
       </div>
+    </router-link> -->
+    <!-- <div v-if="$root.store.username"> -->
+    <!-- <div> -->
+      <!-- <div v-if="viewed"> -->
+      <!-- <div> -->
+        <!-- viewed -->
+      <!-- </div> -->
+      <!-- <div v-if="!favorite"> -->
+      <!-- <div> -->
+        <!-- <button v-on:click="markAsFavorite">favorite</button>
+      </div> -->
+      <!-- <div v-else>faorite</div> -->
+    <!-- </div>
+  </div> -->
+<div>
+  <b-card
+    tag="article"
+    style="max-width: 20rem;"
+    class="mb-2"
+  >
+    <router-link
+      :to="{ name: 'recipe', params: { recipeId: recipe.id, favorite: favorite, vegan: recipe.vegan, vegetarian: recipe.vegetarian, glutenFree: recipe.glutenFree, myRecipe: myRecipe} }" class="recipe-preview">
+    <b-card-img :src="recipe.image" img-alt="Image"></b-card-img>
     </router-link>
-    <div v-if="$root.store.username">
-      <div v-if="viewed">
-        viewed
+    <b-card-title :title="recipe.title"></b-card-title>
+    <b-card-text>
+      <div id="recipe-details">
+        TOTAL TIME: {{recipe.readyInMinutes}} MIN | {{ recipe.popularity }} LIKES
       </div>
-      <div v-if="!favorite">
-        <button v-on:click="markAsFavorite">favorite</button>
+      <div id="dietery">
+        <div v-if="recipe.vegetarian" style="display: inline;">VEGETARIAN |</div>
+        <div v-if="recipe.vegan" style="display: inline;"> VEGAN |</div>
+        <div v-if="recipe.glutenFree" style="display: inline;"> GLUTEN FREE</div>
+      </div>   
+    </b-card-text>
+    <!-- <div id="icons" v-if="$root.store.username" style="display: inline;">
+      <div id="view-icons" style="display: inline;">
+        <div v-if="viewed" style="display: inline;">
+          <b-icon-eye-fill variant="secondary"></b-icon-eye-fill>
+        </div>
+        <div v-else style="display: inline;">
+          <b-icon-eye variant="secondary"></b-icon-eye>
+        </div>
       </div>
-      <div v-else>faorite</div>
+      <div id="favorite-icons" style="display: inline;">
+        <div v-if="favorite">
+          <b-icon-heart-fill variant="danger" style="display: inline;"></b-icon-heart-fill>
+        </div>
+        <div v-else>
+          <button v-on:click="markAsFavorite" style="display: inline;">
+          <b-icon-heart variant="secondary" style="display: inline;"></b-icon-heart></button>
+        </div>
+      </div> -->
+    <div id="icons" v-if="$root.store.username" style="display: inline;">
+      <b-icon-heart-fill v-if="favorite" variant="danger" style="display: inline;"></b-icon-heart-fill>
+      <button  v-if="!favorite" v-on:click="markAsFavorite" style="display: inline;">
+      <b-icon-heart variant="secondary" style="display: inline;"></b-icon-heart></button>
+      <b-icon-eye-fill v-if="viewed" variant="secondary"></b-icon-eye-fill>
+      <b-icon-eye v-if="!viewed" variant="secondary"></b-icon-eye>
     </div>
-  </div>
+  </b-card>
+</div>
 </template>
 
 <script>
