@@ -76,9 +76,15 @@ export default {
       try {
         let viewed_list = this.$root.store.viewed_list;
         this.recipes = [];
-        this.recipes.push(viewed_list[0]);
-        this.recipes.push(viewed_list[1]);
-        this.recipes.push(viewed_list[2]);
+        if (viewed_list.length > 0) {
+          this.recipes.push(viewed_list[0]);
+        }
+        if (viewed_list.length > 1) {
+          this.recipes.push(viewed_list[1]);
+        }
+        if (viewed_list.length > 2) {
+          this.recipes.push(viewed_list[2]);
+        }
         this.myRecipe = false;
       } catch (error) {
         console.log(error)

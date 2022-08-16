@@ -152,6 +152,7 @@ export default {
         console.log(error);
       }
       this.updateFavoriteList();
+      this.favorite = true;
     },
     async updateFavoriteList() {
       try {

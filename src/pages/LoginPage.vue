@@ -107,7 +107,7 @@ export default {
         );
         // console.log(response);
         // this.$root.loggedIn = true;
-        console.log(this.$root.store.login);
+        // console.log(this.$root.store.login);
         this.$root.store.login(this.form.username);
         this.$router.push("/");
         this.updateViewed();
@@ -116,6 +116,7 @@ export default {
         console.log(err.response);
         this.form.submitError = err.response.data.message;
       }
+      
     },
     onLogin() {
       // console.log("login method called");
@@ -127,6 +128,7 @@ export default {
       // console.log("login method go");
 
       this.Login();
+
     },
     async updateViewed() {
       try {
