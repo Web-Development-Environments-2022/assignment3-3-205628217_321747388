@@ -97,10 +97,9 @@ const shared_data = {
     this.favorite_list = favorite_list;
   },
   updateViewedList(viewed_list) {
-    console.log("updateViewedList")
+    // console.log("updateViewedList")
     localStorage.setItem("viewed_list", viewed_list);
     this.viewed_list = viewed_list;
-    console.log(this.viewed_list)
   },
   setLastSearch(searchDetails){
     this.lastSearch = searchDetails;
