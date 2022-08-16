@@ -29,6 +29,7 @@ import {
   ToastPlugin,
   LayoutPlugin,
   ModalPlugin,
+  IconsPlugin
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -41,7 +42,8 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
-  ModalPlugin
+  ModalPlugin,
+  IconsPlugin
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
