@@ -6,8 +6,7 @@
     </h3>
     <b-row v-for="r in recipes" :key="r.id">
       <b-col>
-      <!-- <b-col v-for="r in recipes" :key="r.id"> -->
-        <RecipePreview class="recipePreview" :recipe="r" />
+        <RecipePreview class="recipePreview" :recipe="r" :myRecipe="myRecipe" />
       </b-col>
     </b-row>
   </b-container>
@@ -28,7 +27,8 @@ export default {
   },
   data() {
     return {
-      recipes: []
+      recipes: [],
+      myRecipe: false
     };
   },
   // mounted() {
@@ -47,6 +47,7 @@ export default {
         this.recipes = [];
         this.recipes.push(...recipes);
         console.log(this.recipes);
+        this.myRecipe = false;
       } catch (error) {
         console.log(error);
       }
@@ -78,8 +79,7 @@ export default {
         this.recipes.push(viewed_list[0]);
         this.recipes.push(viewed_list[1]);
         this.recipes.push(viewed_list[2]);
-        console.log("updateViewedRecipes");
-        console.log(this.recipes);
+        this.myRecipe = false;
       } catch (error) {
         console.log(error)
       }
@@ -95,30 +95,38 @@ export default {
         const recipes = response.data;
         this.recipes = [];
         this.recipes.push(...recipes);
-        console.log(this.recipes);
+        this.myRecipe = true;
       } catch (error) {
         console.log(error);
       }
     },
 
-    async updateFavoriteRecipes() {
+    // async updateFavoriteRecipes() {
+    //   try {
+    //     const response = await this.axios.get(
+    //       this.$root.store.server_domain + "/users/favorites",
+    //       // "https://test-for-3-2.herokuapp.com/recipes/random"
+    //     );
+    //     console.log(response);
+    //     const recipes = response.data;
+    //     this.recipes = [];
+    //     this.recipes.push(...recipes);
+    //     this.myRecipe = false;
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // }
+    updateFavoriteRecipes() {
       try {
-        const response = await this.axios.get(
-          this.$root.store.server_domain + "/users/favorites",
-          // "https://test-for-3-2.herokuapp.com/recipes/random"
-        );
-        console.log(response);
-        const recipes = response.data;
+        let favorite_list = this.$root.store.favorite_list;
         this.recipes = [];
-        this.recipes.push(...recipes);
-        console.log(this.recipes);
+        this.recipes.push(...favorite_list);
+        this.myRecipe = false;
       } catch (error) {
-        console.log(error);
+        console.log(error)
       }
     }
-
   }
-
 };
 </script>
 

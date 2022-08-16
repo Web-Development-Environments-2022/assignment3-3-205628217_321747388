@@ -2,7 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
-// axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = true;
 
 import routes from "./routes";
 import VueRouter from "vue-router";
@@ -97,10 +97,9 @@ const shared_data = {
     this.favorite_list = favorite_list;
   },
   updateViewedList(viewed_list) {
-    console.log("updateViewedList")
+    // console.log("updateViewedList")
     localStorage.setItem("viewed_list", viewed_list);
     this.viewed_list = viewed_list;
-    console.log(this.viewed_list)
   },
   setLastSearch(searchDetails){
     this.lastSearch = searchDetails;
