@@ -14,9 +14,13 @@
               <div v-if="vegan">vegan</div>
               <div v-if="vegetarian">vegetarian</div>
               <div v-if="glutenFree">glutenFree</div>
-              <div>viewed</div>
-              <div v-if="favorite">favorite</div>
-              <div v-if="!myRecipe">not my recipe</div>
+              <div v-if="$root.store.username">
+                <div>viewed</div>
+                <div v-if="!favorite">
+                  <button v-on:click="markAsFavorite">favorite</button>
+                </div>
+                <div v-else>faorite</div>
+              </div>
             </div>
             Ingredients:
             <ul v-if="!myRecipe">
@@ -89,7 +93,7 @@ export default {
           this.$router.replace("/NotFound");
           return;
         }
-        console.log(response.data)
+        // console.log(response.data)
         let {
           analyzedInstructions,
           instructions,
@@ -121,34 +125,35 @@ export default {
         this.recipe = _recipe;
 
         // viewed:
-        try {
-          let recipeId = this.$route.params.recipeId;
-          const response = await this.axios.post(
-            this.$root.store.server_domain + "/users/viewed",
-            {
-              recipeId: recipeId
-            }
-          );
-          console.log("response.status", response.status);
-        } catch (error) {
-          console.log(error);
-        }
+        if (this.$root.store.username) {
+          try {
+            let recipeId = this.$route.params.recipeId;
+            const response = await this.axios.post(
+              this.$root.store.server_domain + "/users/viewed",
+              {
+                recipeId: recipeId
+              }
+            );
+            console.log("response.status", response.status);
+          } catch (error) {
+            console.log(error);
+          }
 
-        try {
-          const response = await this.axios.get(
-            this.$root.store.server_domain + "/users/viewed",
-            // "https://test-for-3-2.herokuapp.com/recipes/random"
-          );
-          console.log(response);
-          const recipes = response.data;
-          let recipes_list = [];
-          recipes_list.push(...recipes);
-          console.log(recipes_list);
-          this.$root.store.updateViewedList(recipes_list);
-        } catch (error) {
-          console.log(error);
+          try {
+            const response = await this.axios.get(
+              this.$root.store.server_domain + "/users/viewed",
+              // "https://test-for-3-2.herokuapp.com/recipes/random"
+            );
+            console.log(response);
+            const recipes = response.data;
+            let recipes_list = [];
+            recipes_list.push(...recipes);
+            // console.log(recipes_list);
+            this.$root.store.updateViewedList(recipes_list);
+          } catch (error) {
+            console.log(error);
+          }
         }
-
       // My Recipe
       } else {
         try {
@@ -166,7 +171,7 @@ export default {
           this.$router.replace("/NotFound");
           return;
         }
-        console.log(response.data)
+        // console.log(response.data)
         let {
           analyzedInstructions,
           extendedIngredients,
