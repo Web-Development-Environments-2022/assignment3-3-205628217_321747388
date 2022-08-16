@@ -85,23 +85,21 @@ export default {
     // }
   },
   methods: {
-    // async markAsFavorite() {
-    //   try {
-    //     let recipeId = this.recipe.id;
-    //     const response = await this.axios.post(
-    //       this.$root.store.server_domain + "/users/favorites",
-    //       {                                                                                                                                                                                                                                    
-    //         recipeId: recipeId
-    //       }
-    //     );
-    //     console.log("response.status", response.status);
-    //     this.$root.toast("Favorite", "The Recipe successfully saved as favorite", "success");
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    //   this.updateFavoriteList();
-    // },
-    markAsFavorite(){
+    async markAsFavorite() {
+      try {
+        let recipeId = this.recipe.id;
+        const response = await this.axios.post(
+          this.$root.store.server_domain + "/users/favorites",
+          {
+            recipeId: recipeId
+          }
+        );
+        console.log("response.status", response.status);
+        this.$root.toast("Favorite", "The Recipe successfully saved as favorite", "success");
+      } catch (error) {
+        console.log(error);
+      }
+      this.updateFavoriteList();
       this.favorite = true;
     },
     async updateFavoriteList() {

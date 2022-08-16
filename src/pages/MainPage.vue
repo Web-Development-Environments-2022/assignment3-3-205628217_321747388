@@ -16,12 +16,6 @@
           <RecipePreviewList v-else
             ref = "viewed"
             title="Last Viewed Recipes"
-            :class="{
-              RandomRecipes: true,
-              blur: !$root.store.username,
-              center: true
-            }"
-            disabled
           ></RecipePreviewList>
         </b-col>
       </b-row>
