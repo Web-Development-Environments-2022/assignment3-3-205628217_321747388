@@ -1,14 +1,13 @@
 <template>
   <div>
     <router-link
-      :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
+      :to="{ name: 'recipe', params: { recipeId: recipe.id, favorite: favorite, vegan: recipe.vegan, vegetarian: recipe.vegetarian, glutenFree: recipe.glutenFree, myRecipe: myRecipe} }"
       class="recipe-preview"
     >
       <div class="recipe-body">
         <!-- <img v-if="image_load" :src="recipe.image" class="recipe-image" /> -->
         <img :src="recipe.image" class="recipe-image" />
       </div>
-      <!-- <br/> -->
       <div class="recipe-footer">
         <div :title="recipe.title" class="recipe-title">
           {{ recipe.title }}
@@ -22,11 +21,14 @@
         </ul>
       </div>
     </router-link>
-    <div v-if="viewed">
-      viewed
-    </div>
-    <div v-if="!favorite">
-      <button v-on:click="markAsFavorite">favorite</button>
+    <div v-if="$root.store.username">
+      <div v-if="viewed">
+        viewed
+      </div>
+      <div v-if="!favorite">
+        <button v-on:click="markAsFavorite">favorite</button>
+      </div>
+      <div v-else>faorite</div>
     </div>
   </div>
 </template>
@@ -51,6 +53,10 @@ export default {
     recipe: {
       type: Object,
       required: true
+    },
+    myRecipe: {
+      type: Boolean,
+      required: false
     }
 
     // id: {
@@ -80,21 +86,21 @@ export default {
   methods: {
     async markAsFavorite() {
       try {
-      let recipeId = this.recipe.id;
-      // console.log(recipeId);
-      const response = await this.axios.post(
-        this.$root.store.server_domain + "/users/favorites",
-        {
-          recipeId: recipeId
-        }
-      );
-      console.log("response.status", response.status);
-      this.$root.toast("Favorite", "The Recipe successfully saved as favorite", "success");
-
+        let recipeId = this.recipe.id;
+        const response = await this.axios.post(
+          this.$root.store.server_domain + "/users/favorites",
+          {
+            recipeId: recipeId
+          }
+        );
+        console.log("response.status", response.status);
+        this.$root.toast("Favorite", "The Recipe successfully saved as favorite", "success");
       } catch (error) {
         console.log(error);
       }
-
+      this.updateFavoriteList();
+    },
+    async updateFavoriteList() {
       try {
         const response = await this.axios.get(
           this.$root.store.server_domain + "/users/favorites",
@@ -104,7 +110,6 @@ export default {
         const recipes = response.data;
         let recipes_list = [];
         recipes_list.push(...recipes);
-        console.log(recipes_list);
         this.$root.store.updateFavoriteList(recipes_list);
       } catch (error) {
         console.log(error);

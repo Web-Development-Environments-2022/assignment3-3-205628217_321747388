@@ -138,7 +138,6 @@ export default {
         const recipes = response.data;
         this.recipes = [];
         this.recipes.push(...recipes);
-        console.log(this.recipes);
         this.$root.store.updateViewedList(this.recipes);
       } catch (error) {
         console.log(error);
