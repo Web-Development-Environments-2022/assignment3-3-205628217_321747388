@@ -1,11 +1,11 @@
 <template>
-  <div class="container">
-    <h1 class="title">Main Page</h1>
+  <div class="container" >
+    <h1 id="main-title">LET'S GET COOKING!</h1>
 
     <b-container>
       <b-row>
         <b-col>
-          <RecipePreviewList ref="random" title="Explore this recipes" class="RandomRecipes center" />
+          <RecipePreviewList ref="random" title="Explore these recipes" class="RandomRecipes center" />
           <b-button v-on:click="$refs.random.updateRecipes()">More</b-button>
           <!-- <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
           {{ !$root.store.username }} -->
@@ -50,6 +50,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container{
+  text-align:center
+}
 .RandomRecipes {
   margin: 10px 0 10px;
 }
@@ -60,5 +63,13 @@ export default {
 ::v-deep .blur .recipe-preview {
   pointer-events: none;
   cursor: default;
+}
+
+#main-title{
+  font-family: 'Corben', cursive;
+  text-shadow: 2px 4px #000000;
+  -webkit-text-stroke: 1px black;
+  color: #fef5a2;
+  
 }
 </style>
