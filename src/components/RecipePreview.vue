@@ -5,7 +5,8 @@
       class="recipe-preview"
     >
       <div class="recipe-body">
-        <img v-if="image_load" :src="recipe.image" class="recipe-image" />
+        <!-- <img v-if="image_load" :src="recipe.image" class="recipe-image" /> -->
+        <img :src="recipe.image" class="recipe-image" />
       </div>
       <!-- <br/> -->
       <div class="recipe-footer">
@@ -33,15 +34,15 @@
 <script>
 export default {
   mounted() {
-    this.axios.get(this.recipe.image).then((i) => {
-      this.image_load = true;
-    });
+    // this.axios.get(this.recipe.image).then((i) => {
+    //   this.image_load = true;
+    // });
     this.checkViewed();
     this.checkfavorite();
   },
   data() {
     return {
-      image_load: false,
+      // image_load: false,
       viewed: false,
       favorite: false
     };
