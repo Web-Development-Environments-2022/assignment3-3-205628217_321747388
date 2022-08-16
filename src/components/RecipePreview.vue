@@ -1,50 +1,16 @@
 <template>
-  <!-- <div>
-    <router-link
-      :to="{ name: 'recipe', params: { recipeId: recipe.id, favorite: favorite, vegan: recipe.vegan, vegetarian: recipe.vegetarian, glutenFree: recipe.glutenFree, myRecipe: myRecipe} }"
-      class="recipe-preview"
-    >
-      <div class="recipe-body"> -->
-        <!-- <img v-if="image_load" :src="recipe.image" class="recipe-image" /> -->
-        <!-- <img :src="recipe.image" class="recipe-image" />
-      </div>
-      <div class="recipe-footer">
-        <div :title="recipe.title" class="recipe-title">
-          {{ recipe.title }}
-        </div>
-        <ul class="recipe-overview">
-          <li>{{ recipe.readyInMinutes }} minutes</li>
-          <li>{{ recipe.popularity }} likes</li>
-          <li v-if="recipe.vegan">vegan</li>
-          <li v-if="recipe.vegetarian">vegetarian</li>
-          <li v-if="recipe.glutenFree">gluten free</li>
-        </ul>
-      </div>
-    </router-link> -->
-    <!-- <div v-if="$root.store.username"> -->
-    <!-- <div> -->
-      <!-- <div v-if="viewed"> -->
-      <!-- <div> -->
-        <!-- viewed -->
-      <!-- </div> -->
-      <!-- <div v-if="!favorite"> -->
-      <!-- <div> -->
-        <!-- <button v-on:click="markAsFavorite">favorite</button>
-      </div> -->
-      <!-- <div v-else>faorite</div> -->
-    <!-- </div>
-  </div> -->
 <div>
   <b-card
+    id="card"
     tag="article"
     style="max-width: 20rem;"
     class="mb-2"
   >
     <router-link
       :to="{ name: 'recipe', params: { recipeId: recipe.id, favorite: favorite, vegan: recipe.vegan, vegetarian: recipe.vegetarian, glutenFree: recipe.glutenFree, myRecipe: myRecipe} }" class="recipe-preview">
-    <b-card-img :src="recipe.image" img-alt="Image"></b-card-img>
+    <b-card-img id="img" :src="recipe.image" img-alt="Image"></b-card-img>
     </router-link>
-    <b-card-title :title="recipe.title"></b-card-title>
+    <b-card-title id="title" :title="recipe.title"></b-card-title>
     <b-card-text>
       <div id="recipe-details">
         TOTAL TIME: {{recipe.readyInMinutes}} MIN | {{ recipe.popularity }} LIKES
@@ -74,11 +40,11 @@
         </div>
       </div> -->
     <div id="icons" v-if="$root.store.username" style="display: inline;">
-      <b-icon-heart-fill v-if="favorite" variant="danger" style="display: inline;"></b-icon-heart-fill>
-      <button  v-if="!favorite" v-on:click="markAsFavorite" style="display: inline;">
-      <b-icon-heart variant="secondary" style="display: inline;"></b-icon-heart></button>
-      <b-icon-eye-fill v-if="viewed" variant="secondary"></b-icon-eye-fill>
-      <b-icon-eye v-if="!viewed" variant="secondary"></b-icon-eye>
+      <b-icon-heart-fill class="h5 mb-2" v-if="favorite" variant="danger" style="display: inline;"></b-icon-heart-fill>
+      <button title="Add To Favorite" id="fav-button" v-if="!favorite" v-on:click="markAsFavorite">
+      <b-icon-heart class="h5 mb-2" variant="secondary"></b-icon-heart></button>
+      <b-icon-eye-fill class="h5 mb-2" v-if="viewed" variant="secondary"></b-icon-eye-fill>
+      <b-icon-eye class="h5 mb-2" v-if="!viewed" variant="secondary"></b-icon-eye>
     </div>
   </b-card>
 </div>
@@ -135,21 +101,24 @@ export default {
     // }
   },
   methods: {
-    async markAsFavorite() {
-      try {
-        let recipeId = this.recipe.id;
-        const response = await this.axios.post(
-          this.$root.store.server_domain + "/users/favorites",
-          {
-            recipeId: recipeId
-          }
-        );
-        console.log("response.status", response.status);
-        this.$root.toast("Favorite", "The Recipe successfully saved as favorite", "success");
-      } catch (error) {
-        console.log(error);
-      }
-      this.updateFavoriteList();
+    // async markAsFavorite() {
+    //   try {
+    //     let recipeId = this.recipe.id;
+    //     const response = await this.axios.post(
+    //       this.$root.store.server_domain + "/users/favorites",
+    //       {                                                                                                                                                                                                                                    
+    //         recipeId: recipeId
+    //       }
+    //     );
+    //     console.log("response.status", response.status);
+    //     this.$root.toast("Favorite", "The Recipe successfully saved as favorite", "success");
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    //   this.updateFavoriteList();
+    // },
+    markAsFavorite(){
+      this.favorite = true;
     },
     async updateFavoriteList() {
       try {
@@ -198,7 +167,37 @@ export default {
   position: relative;
   margin: 10px 10px;
 }
-.recipe-preview > .recipe-body {
+
+#fav-button{
+  border: none;
+  background-color: transparent;
+}
+
+#icons > * {
+  margin-right: 10px;
+  margin-left: 10px;
+  padding: 0;
+}
+
+#card{
+  border-color: rgba(5, 5, 5, 0.849);
+  border-width: 1px;
+  background-color:bisque;
+  font-weight: 500;
+}
+
+#title{
+  font-family: 'Corben', cursive;
+  /* font-family: 'Mukta', sans-serif; */
+  /* -webkit-text-stroke: 1px black; */
+  font-style: italic;
+  font-size: x-large;
+  color: rgb(22, 22, 22);
+}
+
+
+
+/* .recipe-preview > .recipe-body {
   width: 100%;
   height: 200px;
   position: relative;
@@ -264,5 +263,7 @@ export default {
   width: 90px;
   display: table-cell;
   text-align: center;
-}
+} */
+
+
 </style>

@@ -23,9 +23,9 @@
             <!-- <router-link tag="li" :to="{name: 'addRecipe'}" id="modal-link" class="nav-link">Add Recipe</router-link> -->
             <b-nav-item :to="{name: 'addRecipe'}" id="modal-link" class="nav-link">Add Recipe</b-nav-item>
             <b-nav-item-dropdown text="Personal Recipes" right>
-              <b-dropdown-item :to="{ name: 'favorites' }">Favorites</b-dropdown-item>
-              <b-dropdown-item :to="{ name: 'myRecipes' }">My Recipes</b-dropdown-item>
-              <b-dropdown-item :to="{ name: 'familyRecipes' }">Family Recipes</b-dropdown-item>
+              <b-dropdown-item variant="secondary" :to="{ name: 'favorites' }">Favorites</b-dropdown-item>
+              <b-dropdown-item variant="secondary" :to="{ name: 'myRecipes' }">My Recipes</b-dropdown-item>
+              <b-dropdown-item variant="secondary" :to="{ name: 'familyRecipes' }">Family Recipes</b-dropdown-item>
             </b-nav-item-dropdown>
             <b-nav-item @click="Logout">Logout</b-nav-item>
           </b-navbar-nav>
@@ -143,6 +143,10 @@ export default {
 #modal-link{
   padding: 7px;
 }
+
+// .b-dropdown-item{
+//   color:#000000;
+// }
 
 // #nav a.router-link-exact-active {
 //   color: #42b983;
