@@ -21,24 +21,6 @@
         <div v-if="recipe.glutenFree" style="display: inline;"> GLUTEN FREE</div>
       </div>   
     </b-card-text>
-    <!-- <div id="icons" v-if="$root.store.username" style="display: inline;">
-      <div id="view-icons" style="display: inline;">
-        <div v-if="viewed" style="display: inline;">
-          <b-icon-eye-fill variant="secondary"></b-icon-eye-fill>
-        </div>
-        <div v-else style="display: inline;">
-          <b-icon-eye variant="secondary"></b-icon-eye>
-        </div>
-      </div>
-      <div id="favorite-icons" style="display: inline;">
-        <div v-if="favorite">
-          <b-icon-heart-fill variant="danger" style="display: inline;"></b-icon-heart-fill>
-        </div>
-        <div v-else>
-          <button v-on:click="markAsFavorite" style="display: inline;">
-          <b-icon-heart variant="secondary" style="display: inline;"></b-icon-heart></button>
-        </div>
-      </div> -->
     <div id="icons" v-if="$root.store.username" style="display: inline;">
       <b-icon-heart-fill class="h5 mb-2" v-if="favorite" variant="danger" style="display: inline;"></b-icon-heart-fill>
       <button title="Add To Favorite" id="fav-button" v-if="!favorite" v-on:click="markAsFavorite">
@@ -194,7 +176,7 @@ export default {
   /* -webkit-text-stroke: 1px black; */
   font-style: italic;
   font-size: x-large;
-  color: rgb(22, 22, 22);
+  color: rgb(5, 5, 5);
 }
 
 
