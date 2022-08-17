@@ -116,6 +116,7 @@ export default {
         // this.$root.loggedIn = true;
         // console.log(this.$root.store.login);
         this.$root.store.login(this.form.username);
+        // console.log(this.$root.store.lastSearch);
         this.$router.push("/");
         this.updateViewed();
         this.updateFavorite();
