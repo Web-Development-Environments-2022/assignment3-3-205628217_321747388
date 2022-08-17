@@ -12,8 +12,11 @@
     </router-link>
     <b-card-title id="title" :title="recipe.title"></b-card-title>
     <b-card-text>
-      <div id="recipe-details">
+      <div id="recipe-details" v-if="!myRecipe">
         TOTAL TIME: {{recipe.readyInMinutes}} MIN | {{ recipe.popularity }} LIKES
+      </div>
+      <div id="recipe-details" v-else>
+        TOTAL TIME: {{recipe.readyInMinutes}} MIN | {{ recipe.aggregateLikes }} LIKES
       </div>
       <div id="dietery">
         <div v-if="recipe.vegetarian" style="display: inline;">VEGETARIAN |</div>
@@ -21,7 +24,7 @@
         <div v-if="recipe.glutenFree" style="display: inline;"> GLUTEN FREE</div>
       </div>   
     </b-card-text>
-    <div id="icons" v-if="$root.store.username" style="display: inline;">
+    <div id="icons" v-if="$root.store.username && !myRecipe" style="display: inline;">
       <b-icon-heart-fill class="h5 mb-2" v-if="favorite" variant="danger" style="display: inline;"></b-icon-heart-fill>
       <button title="Add To Favorite" id="fav-button" v-if="!favorite" v-on:click="markAsFavorite">
       <b-icon-heart class="h5 mb-2" variant="secondary"></b-icon-heart></button>
@@ -117,7 +120,25 @@ export default {
         console.log(error);
       }
     },
+    async updateViewedList() {
+      try {
+        const response = await this.axios.get(
+          this.$root.store.server_domain + "/users/viewed",
+          // "https://test-for-3-2.herokuapp.com/recipes/random"
+        );
+        console.log(response);
+        const recipes = response.data;
+        let recipes_list = [];
+        recipes_list.push(...recipes);
+        this.$root.store.updateViewedList(recipes_list);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     checkViewed() {
+      // if (this.$root.store.viewed_list.length == 0) {
+      //   this.updateViewedList();
+      // }
       let recipeId = this.recipe.id;
       let viewed_list = this.$root.store.viewed_list;
       for (let i = 0; i < viewed_list.length; i++){
@@ -128,6 +149,9 @@ export default {
       }
     },
     checkfavorite() {
+      // if (this.$root.store.favorite_list.length == 0) {
+      //   this.updateFavoriteList();
+      // }
       let recipeId = this.recipe.id;
       let favorite_list = this.$root.store.favorite_list;
       for (let i = 0; i < favorite_list.length; i++){

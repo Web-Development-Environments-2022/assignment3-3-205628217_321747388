@@ -13,10 +13,11 @@
 
         <b-col>
           <LoginPage v-if="!$root.store.username"></LoginPage>
-          <RecipePreviewList v-else
+          <ViewedRecipePreviewList v-else ref = "viewed" title="Last Viewed Recipes"></ViewedRecipePreviewList>
+          <!-- <RecipePreviewList v-else
             ref = "viewed"
             title="Last Viewed Recipes"
-          ></RecipePreviewList>
+          ></RecipePreviewList> -->
         </b-col>
       </b-row>
     </b-container>
@@ -30,42 +31,17 @@
 
 <script>
 import RecipePreviewList from "../components/RecipePreviewList";
+import ViewedRecipePreviewList from "../components/ViewedRecipePreviewList";
 import LoginPage from "./LoginPage.vue";
 export default {
-  // data(){
-  //   return{
-  //     recipes:[
-  //       {
-  //         id: 641726,
-  //         title: "Dulce De Leche Brownies",
-  //         readyInMinutes: 45,
-  //         image: "https://spoonacular.com/recipeImages/641726-556x370.jpg",
-  //         popularity: 29,
-  //         vegen: true,
-  //         vegetarian: true,
-  //         glutenFree: true
-  //       },
-  //       {
-  //         id: 651389,
-  //         title: "Medenjaci - Croatian Honey Spice Cookies",
-  //         readyInMinutes: 45,
-  //         image: "https://spoonacular.com/recipeImages/651389-556x370.jpg",
-  //         popularity: 6,
-  //         vegen: true,
-  //         vegetarian: true,
-  //         glutenFree: true
-  //       }
-  //     ]
-  //   }
-  // },
   components: {
     RecipePreviewList,
-    LoginPage
+    LoginPage,
+    ViewedRecipePreviewList 
   },
   mounted() {
     this.$refs.random.updateRecipes();
-    this.$refs.viewed.updateViewedRecipes();
-    // this.$refs.random.pushRecipes(this.recipes);
+    // this.$refs.viewed.updateViewedRecipes();
   },
 };
 </script>

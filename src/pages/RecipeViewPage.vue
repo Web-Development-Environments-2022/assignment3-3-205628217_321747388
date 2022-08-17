@@ -14,7 +14,7 @@
               <div v-if="vegan">vegan</div>
               <div v-if="vegetarian">vegetarian</div>
               <div v-if="glutenFree">glutenFree</div>
-              <div v-if="$root.store.username">
+              <div v-if="$root.store.username && !myRecipe">
                 <div>viewed</div>
                 <div v-if="!favorite">
                   <button v-on:click="markAsFavorite">favorite</button>
