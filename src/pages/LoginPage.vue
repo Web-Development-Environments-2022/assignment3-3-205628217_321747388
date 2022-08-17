@@ -197,7 +197,8 @@ export default {
   text-shadow: 2px 3.5px #000000;
   -webkit-text-stroke: 1.2px black;
   color: #ebc2ce;
-  font-size: x-large;
+  font-size: xx-large;
+  margin-top: 10px;
 }
 
 #login-form{
