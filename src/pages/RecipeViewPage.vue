@@ -39,7 +39,7 @@
                 {{ r.original }}
               </li>
             </ul>
-            <div v-else>{{recipe.extendedIngredients}}</div>
+            <div v-else style="white-space: pre-wrap;">{{recipe.extendedIngredients}}</div>
           </div>
           <div class="wrapped">
             <h3 id="ins-title">INSTRUCTIONS :</h3>
@@ -48,7 +48,7 @@
                 {{ s.step }}
               </li>
             </ol>
-            <div v-else>{{recipe.analyzedInstructions}}</div>
+            <div v-else style="white-space: pre-wrap;">{{recipe.analyzedInstructions}}</div>
           </div>
         </div>
       </div>

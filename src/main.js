@@ -84,6 +84,8 @@ const shared_data = {
     localStorage.setItem("username", username);
     this.username = username;
     console.log("login", this.username);
+    sessionStorage.removeItem("lastSearch");
+    this.last_search = undefined;
   },
   logout() {
     console.log("logout");

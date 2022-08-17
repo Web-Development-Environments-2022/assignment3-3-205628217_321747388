@@ -109,7 +109,7 @@
       Search failed: {{ form.submitError }}
     </b-alert>
 
-    <div v-if="submitted">
+    <div v-if="search_results">
       <h5 id="no-res" v-if="noResults">We couldn't find recipes to match your search</h5>
       <div v-else class="text-center">
         <b-dropdown id="sort" v-if="!isEmpty" text="Sort By" variant="outline-dark" class="m-2">
@@ -227,7 +227,7 @@ export default {
         // let sorted = this.sortByPrepTime;
         // console.log(sorted);
         if(!this.isEmpty){
-                  this.$refs.res.pushRecipes(this.search_results);
+          this.$refs.res.pushRecipes(this.search_results);
         }
         else{
           this.noResults = true;
@@ -304,10 +304,10 @@ export default {
   },
   mounted(){
     if(this.$root.store.username){
-      if(this.$root.store.lastSearch){
+      if(this.$root.store.lastSearch){          
           this.getLastSearch();
+          console.log(this.search_results)
           this.$refs.res.pushRecipes(this.search_results);
-
         }
     }
   },
