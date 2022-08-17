@@ -19,11 +19,11 @@
                     <div class="wrapped">
                         
                       <h3 id="ing-title">Ingredients:</h3>
-                        <div>{{r.ingredients}}</div>
+                        <div style="white-space: pre-wrap;">{{r.ingredients}}</div>
                     </div>
                     <div class="wrapped">
                         <h3 id="ins-title">Instructions:</h3>
-                        <div>{{r.instructions}}</div>
+                        <div style="white-space: pre-wrap;">{{r.instructions}}</div>
                     </div>
                 </div>
             </div>
