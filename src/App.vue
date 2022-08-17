@@ -21,7 +21,7 @@
             <!-- <b-nav-item :to="{ name: 'addRecipe' }">Add Recipe</b-nav-item> -->
             <!-- <b-button v-b-modal.modal-1>Add Recipe</b-button> -->
             <!-- <router-link tag="li" :to="{name: 'addRecipe'}" id="modal-link" class="nav-link">Add Recipe</router-link> -->
-            <b-nav-item :to="{name: 'addRecipe'}" id="modal-link" class="nav-link">Add Recipe</b-nav-item>
+            <b-nav-item :to="{name: 'addRecipe'}" id="modal-button" class="nav-link">Add Recipe</b-nav-item>
             <b-nav-item-dropdown text="Personal Recipes" right>
               <b-dropdown-item variant="secondary" :to="{ name: 'favorites' }">Favorites</b-dropdown-item>
               <b-dropdown-item variant="secondary" :to="{ name: 'myRecipes' }">My Recipes</b-dropdown-item>
@@ -140,7 +140,7 @@ export default {
   
 }
 
-#modal-link{
+#modal-button{
   padding: 7px;
 }
 

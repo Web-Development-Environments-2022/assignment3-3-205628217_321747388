@@ -1,7 +1,5 @@
 <template>
   <div class="container">
-    <!-- <b-button v-b-modal.add-recipe-modal>Open Modal</b-button> -->
-
     <b-modal
       id="recipe-modal"
       ref="recipe-modal"
@@ -12,7 +10,7 @@
       hide-footer
       @show="resetModal"
       @hidden="resetModal"
-      @hide="exit"
+      @hide="exitModal"
       modal-class="my-second-class"
       
     >
@@ -144,12 +142,14 @@
         label="Ingredients:"
         label-for="ingredients"
       >
-        <b-form-input
-          id="ingredients"
-          v-model="$v.form.ingredients.$model"
-          type="text"
-          :state="validateState('ingredients')" 
-        ></b-form-input>
+        <div v-for="(ing, index) in ingList" :key="index">	
+          <b-form-input
+            id="ingredients"
+            v-model="ing.value"
+            type="text"
+            :state="validateState('ingredients')" 
+          ></b-form-input>
+        </div>
         <b-form-invalid-feedback v-if="!$v.form.ingredients.required">
          Ingredients is required
         </b-form-invalid-feedback>
@@ -157,7 +157,8 @@
          Ingredients max length should be 1000 characters
         </b-form-invalid-feedback>
       </b-form-group> 
-      
+      <button @click="addIng">Add Ingredient</button>	
+
     <!-- Instructions -->
       <b-form-group
         id="input-group-instructions"
@@ -165,12 +166,14 @@
         label="Instructions:"
         label-for="instructions"
       >
+      <div v-for="(find, index) in finds" :key="index">	
         <b-form-input
           id="instructions"
-          v-model="$v.form.instructions.$model"
+          v-model="find.value"	
           type="text"
           :state="validateState('instructions')" 
         ></b-form-input>
+      </div>
         <b-form-invalid-feedback v-if="!$v.form.instructions.required">
          Instructions is required
         </b-form-invalid-feedback>
@@ -178,7 +181,7 @@
          Instructions max length should be 2000 characters
         </b-form-invalid-feedback>
       </b-form-group> 
-
+      <button @click="addFind">Add Instruction</button>	
     <!-- Servings -->
       <b-form-group
         id="input-group-servings"
@@ -254,7 +257,9 @@ export default {
           { value: '0', text: 'No' }
         ],
       errors: [],
-      validated: false
+      validated: false,
+      finds:[{ value: '' }],
+      ingList:[{ value: '' }]
     };
   },
   validations: {
@@ -282,12 +287,12 @@ export default {
         required
       },
       ingredients:{
-        required,
-        length: (u) => maxLength(1000)(u)
+        // required,
+        // length: (u) => maxLength(1000)(u)
       },
       instructions:{
-        required,
-        length: (u) => maxLength(2000)(u)
+        // required,
+        // length: (u) => maxLength(2000)(u)
       },
       servings: {
         required,
@@ -343,6 +348,9 @@ export default {
         return;
       }
       console.log("register method go");
+      this.form.instructions = this.prepareInstruction();
+      this.form.ingredients = this.prepareIngredients();
+      // console.log("new inst", this.instructions);
       this.Submit();
     },
     onReset() {
@@ -364,13 +372,49 @@ export default {
     resetModal() {
         this.onReset();
     },
-    exit(bvModalEvt){
-      if (confirm("If you exit, your recipe will be lost")){
+    exitModal(bvModalEvt){
+      if (confirm("Your progress will be lost. Are you sure you want to leave?")){
         this.$router.back();
       }
       else{
         bvModalEvt.preventDefault();
       }
+    },
+    addFind: function () {	
+      this.finds.push({ value: '' });	
+    },
+    addIng: function () {	
+      this.ingList.push({ value: '' });	
+    },
+    prepareInstruction(){
+      console.log(this.finds);
+      let newInstruction = "";
+      // for(let find in this.finds){
+      //   console.log(find.value);
+      //   newInstruction.concat(find.value + "\n");
+      // }
+      for (let i = 0; i < this.finds.length; i++) {
+        // console.log(find[i]);
+        console.log(this.finds[i].value);
+        newInstruction += (i+1)+ ". " + this.finds[i].value + "\n";
+      }
+      console.log(newInstruction);
+      return newInstruction;
+    },
+    prepareIngredients(){
+      // console.log(this.finds);
+      let newIngredients = "";
+      // for(let find in this.finds){
+      //   console.log(find.value);
+      //   newInstruction.concat(find.value + "\n");
+      // }
+      for (let j = 0; j < this.ingList.length; j++) {
+        // console.log(find[i]);
+        console.log(this.ingList[j].value);
+        newIngredients += this.ingList[j].value + "\n";
+      }
+      // console.log(newInstruction);
+      return newIngredients;
     }
   }
 };
