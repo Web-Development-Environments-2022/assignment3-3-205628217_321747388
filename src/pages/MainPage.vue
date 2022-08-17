@@ -13,10 +13,11 @@
 
         <b-col>
           <LoginPage v-if="!$root.store.username"></LoginPage>
-          <RecipePreviewList v-else
+          <ViewedRecipePreviewList v-else ref = "viewed" title="Last Viewed Recipes"></ViewedRecipePreviewList>
+          <!-- <RecipePreviewList v-else
             ref = "viewed"
             title="Last Viewed Recipes"
-          ></RecipePreviewList>
+          ></RecipePreviewList> -->
         </b-col>
       </b-row>
     </b-container>
@@ -30,15 +31,17 @@
 
 <script>
 import RecipePreviewList from "../components/RecipePreviewList";
+import ViewedRecipePreviewList from "../components/ViewedRecipePreviewList";
 import LoginPage from "./LoginPage.vue";
 export default {
   components: {
     RecipePreviewList,
-    LoginPage 
+    LoginPage,
+    ViewedRecipePreviewList 
   },
   mounted() {
     this.$refs.random.updateRecipes();
-    this.$refs.viewed.updateViewedRecipes();
+    // this.$refs.viewed.updateViewedRecipes();
   },
 };
 </script>
