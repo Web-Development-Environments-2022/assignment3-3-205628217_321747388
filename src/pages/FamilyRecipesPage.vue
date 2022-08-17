@@ -1,9 +1,10 @@
 <template>
   <div class="container center">
-    <!-- <h1 id="title-fam" class="title">Family Recipes</h1> -->
-    
-    <FamilyRecipes ref="familyRecipes" title="Family Recipes" class="RandomRecipes center" />
-             
+    <FamilyRecipes
+      ref="familyRecipes"
+      title="Family Recipes"
+      class="RandomRecipes center"
+    />
   </div>
 </template>
 
@@ -11,7 +12,7 @@
 import FamilyRecipes from "../components/FamilyRecipes";
 export default {
   components: {
-    FamilyRecipes
+    FamilyRecipes,
   },
   mounted() {
     this.$refs.familyRecipes.updateRecipes();
@@ -20,9 +21,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.RandomRecipes {
-  // margin: 10px 0 10px;
-}
 .blur {
   -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
   filter: blur(2px);
@@ -32,8 +30,8 @@ export default {
   cursor: default;
 }
 
-#title-fam{
-  font-family: 'Corben', cursive;
+#title-fam {
+  font-family: "Corben", cursive;
   text-shadow: 2px 3.5px #000000;
   -webkit-text-stroke: 1.2px black;
   color: #ebc2ce;

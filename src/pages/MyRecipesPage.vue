@@ -1,8 +1,10 @@
 <template>
   <div class="container" style="text-align: center;">
-    
-    <RecipePreviewList ref="myRecipes" title="My recipes" class="RandomRecipes center" />
-             
+    <RecipePreviewList
+      ref="myRecipes"
+      title="My recipes"
+      class="RandomRecipes center"
+    />
   </div>
 </template>
 
@@ -10,7 +12,7 @@
 import RecipePreviewList from "../components/RecipePreviewList";
 export default {
   components: {
-    RecipePreviewList
+    RecipePreviewList,
   },
   mounted() {
     this.$refs.myRecipes.updateMyRecipes();

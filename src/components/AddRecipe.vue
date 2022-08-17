@@ -5,237 +5,232 @@
       ref="recipe-modal"
       title="Add New Recipe"
       header-bg-variant="secondary"
-      header-text-variant  = "light"
-      body-bg-variant= "secondary"
+      header-text-variant="light"
+      body-bg-variant="secondary"
       hide-footer
       @show="resetModal"
       @hidden="resetModal"
       @hide="exitModal"
       modal-class="my-second-class"
-      
     >
-    <b-form id="new-form" @submit.prevent="onSubmit" @reset.prevent="onReset">
-      <!-- Recipe Name -->
-      <b-form-group
-        id="input-group-name"
-        label-cols-sm="3"
-        label="Name:"
-        label-for="name"
-      >
-        <b-form-input
-          id="name"
-          v-model="$v.form.name.$model"
-          type="text"
-          :state="validateState('name')"
-        ></b-form-input>
-        <b-form-invalid-feedback v-if="!$v.form.name.required">
-          Name is required
-        </b-form-invalid-feedback>
-        <b-form-invalid-feedback v-else-if="!$v.form.name.length">
-          Name max length should be 300 characters
-        </b-form-invalid-feedback>
-        <b-form-invalid-feedback v-if="!$v.form.name.alpha">
-          Name may only contain alphabetic characters
-        </b-form-invalid-feedback>
-      </b-form-group>
-
-      <!-- Image -->
-      <b-form-group
-        id="input-group-image"
-        label-cols-sm="3"
-        label="Image URL:"
-        label-for="image"
-      >
-        <b-form-input
-          id="image"
-          v-model="$v.form.image.$model"
-          type="text"
-          :state="validateState('image')" 
-        ></b-form-input>
-        <b-form-invalid-feedback v-if="!$v.form.image.required">
-         Image is required
-        </b-form-invalid-feedback>
-        <b-form-invalid-feedback v-if="!$v.form.image.length">
-         Image URL max length should be 300 characters
-        </b-form-invalid-feedback>
-      </b-form-group>
-
-      <!-- Ready in minutes -->
-      <b-form-group
-        id="input-group-time"
-        label-cols-sm="3"
-        label="Ready in minutes:"
-        label-for="readyInMinutes"
-      >
-        <b-form-input
-          id="readyInMinutes"
-          v-model="$v.form.readyInMinutes.$model"
-          type="number"
-          :state="validateState('readyInMinutes')" 
-        ></b-form-input>
-        <b-form-invalid-feedback v-if="!$v.form.readyInMinutes.required">
-          Preperation time is required
-        </b-form-invalid-feedback>
-        <b-form-invalid-feedback v-if="!$v.form.readyInMinutes.numeric">
-          Preperation time can only be numeric
-        </b-form-invalid-feedback>
-      </b-form-group>
-
-      <!-- Vegetarian -->
-      <b-form-group
-        id="input-group-vegetarian"
-        label-cols-sm="3"
-        label="Vegetarian:"
-        label-for="vegetarian"
-      >
-        <b-form-select
-          id="vegetarian"
-          v-model="$v.form.vegetarian.$model"
-          :options="options"
-          :state="validateState('vegetarian')"
-        ></b-form-select>
-        <b-form-invalid-feedback>
-          Please note if vegetarian
-        </b-form-invalid-feedback>
-      </b-form-group>
-
-    <!-- Vegan -->
-      <b-form-group
-        id="input-group-vegan"
-        label-cols-sm="3"
-        label="Vegan:"
-        label-for="vegan"
-      >
-        <b-form-select
-          id="vegan"
-          v-model="$v.form.vegan.$model"
-          :options="options"
-          :state="validateState('vegan')"
-        ></b-form-select>
-        <b-form-invalid-feedback>
-          Please note if vegan
-        </b-form-invalid-feedback>
-      </b-form-group>
-
-    <!-- Gluten Free -->
-      <b-form-group
-        id="input-group-glutenFree"
-        label-cols-sm="3"
-        label="Gluten Free:"
-        label-for="glutenFree"
-      >
-        <b-form-select
-          id="glutenFree"
-          v-model="$v.form.glutenFree.$model"
-          :options="options"
-          :state="validateState('glutenFree')"
-        ></b-form-select>
-        <b-form-invalid-feedback>
-          Please note if gluten free
-        </b-form-invalid-feedback>
-      </b-form-group>
-
-    <!-- Ingredients -->
-      <b-form-group
-        id="input-group-ingredients"
-        label-cols-sm="3"
-        label="Ingredients:"
-        label-for="ingredients"
-      >
-        <div v-for="(ing, index) in ingList" :key="index">	
+      <b-form id="new-form" @submit.prevent="onSubmit" @reset.prevent="onReset">
+        <!-- Recipe Name -->
+        <b-form-group
+          id="input-group-name"
+          label-cols-sm="3"
+          label="Name:"
+          label-for="name"
+        >
           <b-form-input
-            id="ingredients"
-            v-model="ing.value"
+            id="name"
+            v-model="$v.form.name.$model"
             type="text"
-            :state="validateState('ingredients')" 
+            :state="validateState('name')"
           ></b-form-input>
+          <b-form-invalid-feedback v-if="!$v.form.name.required">
+            Name is required
+          </b-form-invalid-feedback>
+          <b-form-invalid-feedback v-else-if="!$v.form.name.length">
+            Name max length should be 300 characters
+          </b-form-invalid-feedback>
+          <b-form-invalid-feedback v-if="!$v.form.name.alpha">
+            Name may only contain alphabetic characters
+          </b-form-invalid-feedback>
+        </b-form-group>
+
+        <!-- Image -->
+        <b-form-group
+          id="input-group-image"
+          label-cols-sm="3"
+          label="Image URL:"
+          label-for="image"
+        >
+          <b-form-input
+            id="image"
+            v-model="$v.form.image.$model"
+            type="text"
+            :state="validateState('image')"
+          ></b-form-input>
+          <b-form-invalid-feedback v-if="!$v.form.image.required">
+            Image is required
+          </b-form-invalid-feedback>
+          <b-form-invalid-feedback v-if="!$v.form.image.length">
+            Image URL max length should be 300 characters
+          </b-form-invalid-feedback>
+        </b-form-group>
+
+        <!-- Ready in minutes -->
+        <b-form-group
+          id="input-group-time"
+          label-cols-sm="3"
+          label="Ready in minutes:"
+          label-for="readyInMinutes"
+        >
+          <b-form-input
+            id="readyInMinutes"
+            v-model="$v.form.readyInMinutes.$model"
+            type="number"
+            :state="validateState('readyInMinutes')"
+          ></b-form-input>
+          <b-form-invalid-feedback v-if="!$v.form.readyInMinutes.required">
+            Preperation time is required
+          </b-form-invalid-feedback>
+          <b-form-invalid-feedback v-if="!$v.form.readyInMinutes.numeric">
+            Preperation time can only be numeric
+          </b-form-invalid-feedback>
+        </b-form-group>
+
+        <!-- Vegetarian -->
+        <b-form-group
+          id="input-group-vegetarian"
+          label-cols-sm="3"
+          label="Vegetarian:"
+          label-for="vegetarian"
+        >
+          <b-form-select
+            id="vegetarian"
+            v-model="$v.form.vegetarian.$model"
+            :options="options"
+            :state="validateState('vegetarian')"
+          ></b-form-select>
+          <b-form-invalid-feedback>
+            Please note if vegetarian
+          </b-form-invalid-feedback>
+        </b-form-group>
+
+        <!-- Vegan -->
+        <b-form-group
+          id="input-group-vegan"
+          label-cols-sm="3"
+          label="Vegan:"
+          label-for="vegan"
+        >
+          <b-form-select
+            id="vegan"
+            v-model="$v.form.vegan.$model"
+            :options="options"
+            :state="validateState('vegan')"
+          ></b-form-select>
+          <b-form-invalid-feedback>
+            Please note if vegan
+          </b-form-invalid-feedback>
+        </b-form-group>
+
+        <!-- Gluten Free -->
+        <b-form-group
+          id="input-group-glutenFree"
+          label-cols-sm="3"
+          label="Gluten Free:"
+          label-for="glutenFree"
+        >
+          <b-form-select
+            id="glutenFree"
+            v-model="$v.form.glutenFree.$model"
+            :options="options"
+            :state="validateState('glutenFree')"
+          ></b-form-select>
+          <b-form-invalid-feedback>
+            Please note if gluten free
+          </b-form-invalid-feedback>
+        </b-form-group>
+
+        <!-- Ingredients -->
+        <b-form-group
+          id="input-group-ingredients"
+          label-cols-sm="3"
+          label="Ingredients:"
+          label-for="ingredients"
+        >
+          <div v-for="(ing, index) in ingList" :key="index">
+            <b-form-input
+              id="ingredients"
+              v-model="ing.value"
+              type="text"
+              :state="validateState('ingredients')"
+            ></b-form-input>
+          </div>
+          <b-form-invalid-feedback v-if="!$v.form.ingredients.required">
+            Ingredients is required
+          </b-form-invalid-feedback>
+          <b-form-invalid-feedback v-if="!$v.form.ingredients.length">
+            Ingredients max length should be 1000 characters
+          </b-form-invalid-feedback>
+        </b-form-group>
+        <b-button id="add-ing" @click="addIng" class="ml-5 w-75">Add Ingredient</b-button>
+
+        <!-- Instructions -->
+        <b-form-group
+          id="input-group-instructions"
+          label-cols-sm="3"
+          label="Instructions:"
+          label-for="instructions"
+        >
+          <div v-for="(find, index) in finds" :key="index">
+            <b-form-input
+              id="instructions"
+              v-model="find.value"
+              type="text"
+              :state="validateState('instructions')"
+            ></b-form-input>
+          </div>
+          <b-form-invalid-feedback v-if="!$v.form.instructions.required">
+            Instructions is required
+          </b-form-invalid-feedback>
+          <b-form-invalid-feedback v-if="!$v.form.instructions.length">
+            Instructions max length should be 2000 characters
+          </b-form-invalid-feedback>
+        </b-form-group>
+        <b-button id="add-ins" @click="addFind" class="ml-5 w-75">Add Instruction</b-button>
+        <!-- Servings -->
+        <b-form-group
+          id="input-group-servings"
+          label-cols-sm="3"
+          label="Servings:"
+          label-for="servings"
+        >
+          <b-form-input
+            id="servings"
+            v-model="$v.form.servings.$model"
+            type="number"
+            :state="validateState('servings')"
+          ></b-form-input>
+          <b-form-invalid-feedback v-if="!$v.form.servings.required">
+            Number of servings is required
+          </b-form-invalid-feedback>
+          <b-form-invalid-feedback v-if="!$v.form.servings.numeric">
+            Number of servings can only be numeric
+          </b-form-invalid-feedback>
+        </b-form-group>
+
+        <div id="buttons">
+          <b-button id="reset-button" type="reset" variant="danger"
+            >Reset</b-button
+          >
+          <b-button
+            id="submit-button"
+            type="submit"
+            variant="primary"
+            style="width:250px;"
+            class="ml-5 w-75"
+            >Submit</b-button
+          >
         </div>
-        <b-form-invalid-feedback v-if="!$v.form.ingredients.required">
-         Ingredients is required
-        </b-form-invalid-feedback>
-        <b-form-invalid-feedback v-if="!$v.form.ingredients.length">
-         Ingredients max length should be 1000 characters
-        </b-form-invalid-feedback>
-      </b-form-group> 
-      <button @click="addIng">Add Ingredient</button>	
-
-    <!-- Instructions -->
-      <b-form-group
-        id="input-group-instructions"
-        label-cols-sm="3"
-        label="Instructions:"
-        label-for="instructions"
+      </b-form>
+      <b-alert
+        class="mt-2"
+        v-if="form.submitError"
+        variant="warning"
+        dismissible
+        show
       >
-      <div v-for="(find, index) in finds" :key="index">	
-        <b-form-input
-          id="instructions"
-          v-model="find.value"	
-          type="text"
-          :state="validateState('instructions')" 
-        ></b-form-input>
-      </div>
-        <b-form-invalid-feedback v-if="!$v.form.instructions.required">
-         Instructions is required
-        </b-form-invalid-feedback>
-        <b-form-invalid-feedback v-if="!$v.form.instructions.length">
-         Instructions max length should be 2000 characters
-        </b-form-invalid-feedback>
-      </b-form-group> 
-      <button @click="addFind">Add Instruction</button>	
-    <!-- Servings -->
-      <b-form-group
-        id="input-group-servings"
-        label-cols-sm="3"
-        label="Servings:"
-        label-for="servings"
-      >
-        <b-form-input
-          id="servings"
-          v-model="$v.form.servings.$model"
-          type="number"
-          :state="validateState('servings')" 
-        ></b-form-input>
-        <b-form-invalid-feedback v-if="!$v.form.servings.required">
-          Number of servings is required
-        </b-form-invalid-feedback>
-        <b-form-invalid-feedback v-if="!$v.form.servings.numeric">
-          Number of servings can only be numeric
-        </b-form-invalid-feedback>
-      </b-form-group>
-
-      
-      <div id="buttons">
-      <b-button id="reset-button" type="reset" variant="danger">Reset</b-button>
-      <b-button
-        id="submit-button"
-        type="submit"
-        variant="primary"
-        style="width:250px;"
-        class="ml-5 w-75"
-        >Submit</b-button
-      >
-      </div>
-    </b-form>
-    <b-alert
-      class="mt-2"
-      v-if="form.submitError"
-      variant="warning"
-      dismissible
-      show
-    >
-      Submission failed: {{ form.submitError }}
-    </b-alert>
+        Submission failed: {{ form.submitError }}
+      </b-alert>
     </b-modal>
   </div>
 </template>
 
 <script>
-import {
-  required,
-  maxLength,
-  alpha,
-  numeric
-} from "vuelidate/lib/validators";
+import { required, maxLength, alpha, numeric } from "vuelidate/lib/validators";
 
 export default {
   data() {
@@ -250,16 +245,16 @@ export default {
         ingredients: "",
         instructions: "",
         servings: "",
-        submitError: undefined
+        submitError: undefined,
       },
       options: [
-          { value: '1', text: 'Yes' },
-          { value: '0', text: 'No' }
-        ],
+        { value: "1", text: "Yes" },
+        { value: "0", text: "No" },
+      ],
       errors: [],
       validated: false,
-      finds:[{ value: '' }],
-      ingList:[{ value: '' }]
+      finds: [{ value: "" }],
+      ingList: [{ value: "" }],
     };
   },
   validations: {
@@ -267,44 +262,39 @@ export default {
       name: {
         required,
         length: (u) => maxLength(300)(u),
-        alpha
+        alpha,
       },
       image: {
         required,
-        length: (u) => maxLength(300)(u)
+        length: (u) => maxLength(300)(u),
       },
       readyInMinutes: {
         required,
-        numeric
+        numeric,
       },
       vegetarian: {
-        required
+        required,
       },
       vegan: {
-        required
+        required,
       },
       glutenFree: {
-        required
+        required,
       },
-      ingredients:{
-        // required,
-        // length: (u) => maxLength(1000)(u)
+      ingredients: {
+
       },
-      instructions:{
-        // required,
-        // length: (u) => maxLength(2000)(u)
+      instructions: {
+
       },
       servings: {
         required,
-        numeric
+        numeric,
       },
-    
-    }
+    },
   },
   mounted() {
-    // console.log("mounted");
-    // console.log($v);
-    this.$bvModal.show('recipe-modal');
+    this.$bvModal.show("recipe-modal");
   },
   methods: {
     validateState(param) {
@@ -314,7 +304,6 @@ export default {
     async Submit() {
       try {
         const response = await this.axios.post(
-          // "https://test-for-3-2.herokuapp.com/user/Register",
           this.$root.store.server_domain + "/recipes/createRecipe",
           {
             title: this.form.name,
@@ -325,32 +314,24 @@ export default {
             glutenFree: this.form.glutenFree,
             extendedIngredients: this.form.ingredients,
             analyzedInstructions: this.form.instructions,
-            servings: this.form.servings     
+            servings: this.form.servings,
           }
         );
-        //this.$router.push("/login");
-        console.log(response);
-        this.$bvModal.hide("add-recipe-modal")
+        this.$bvModal.hide("add-recipe-modal");
         this.$root.toast("Add Recipe", "Recipe added", "success");
         this.$router.back();
-
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;
       }
     },
     onSubmit() {
-      console.log("register method called");
-      console.log(this.name)
-      console.log(this.servings)
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
       }
-      console.log("register method go");
       this.form.instructions = this.prepareInstruction();
       this.form.ingredients = this.prepareIngredients();
-      // console.log("new inst", this.instructions);
       this.Submit();
     },
     onReset() {
@@ -363,60 +344,45 @@ export default {
         glutenFree: null,
         ingredients: "",
         instructions: "",
-        servings: ""
+        servings: "",
       };
       this.$nextTick(() => {
         this.$v.$reset();
       });
     },
     resetModal() {
-        this.onReset();
+      this.onReset();
     },
-    exitModal(bvModalEvt){
-      if (confirm("Your progress will be lost. Are you sure you want to leave?")){
+    exitModal(bvModalEvt) {
+      if (
+        confirm("Your progress will be lost. Are you sure you want to leave?")
+      ) {
         this.$router.back();
-      }
-      else{
+      } else {
         bvModalEvt.preventDefault();
       }
     },
-    addFind: function () {	
-      this.finds.push({ value: '' });	
+    addFind: function() {
+      this.finds.push({ value: "" });
     },
-    addIng: function () {	
-      this.ingList.push({ value: '' });	
+    addIng: function() {
+      this.ingList.push({ value: "" });
     },
-    prepareInstruction(){
-      console.log(this.finds);
+    prepareInstruction() {
       let newInstruction = "";
-      // for(let find in this.finds){
-      //   console.log(find.value);
-      //   newInstruction.concat(find.value + "\n");
-      // }
       for (let i = 0; i < this.finds.length; i++) {
-        // console.log(find[i]);
-        console.log(this.finds[i].value);
-        newInstruction += (i+1)+ ". " + this.finds[i].value + "\n";
+        newInstruction += i + 1 + ". " + this.finds[i].value + "\n";
       }
-      console.log(newInstruction);
       return newInstruction;
     },
-    prepareIngredients(){
-      // console.log(this.finds);
+    prepareIngredients() {
       let newIngredients = "";
-      // for(let find in this.finds){
-      //   console.log(find.value);
-      //   newInstruction.concat(find.value + "\n");
-      // }
       for (let j = 0; j < this.ingList.length; j++) {
-        // console.log(find[i]);
-        console.log(this.ingList[j].value);
         newIngredients += this.ingList[j].value + "\n";
       }
-      // console.log(newInstruction);
       return newIngredients;
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -424,19 +390,7 @@ export default {
   max-width: 500px;
 }
 
-
-
-// #recipe-modal{
-//   border-color: rgba(5, 5, 5, 0.849);
-//   border-width: 10px;
-//   background-color:bisque;
-//   border-style: solid;
-//   border-radius: 5px;
-//   font-size: 20px;
-//   font-weight: bolder;
-// }
-
-#new-form{
+#new-form {
   // border-color: rgba(5, 5, 5, 0.849);
   // border-width: 1px;
   // background-color:bisque;
@@ -444,52 +398,68 @@ export default {
   // border-radius: 5px;
   font-size: 20px;
   font-weight: 500;
-  font-family: 'Mukta', sans-serif;
+  font-family: "Mukta", sans-serif;
   margin: 0%;
   color: white;
 }
 
-#name, #image, #readyInMinutes, #vegetarian, #vegan, #glutenFree, #ingredients, #instructions, #servings{
+#name,
+#image,
+#readyInMinutes,
+#vegetarian,
+#vegan,
+#glutenFree,
+#ingredients,
+#instructions,
+#servings {
   border-style: solid;
   border-radius: 5px;
   border-color: rgba(5, 5, 5, 0.849);
   border-width: 1px;
 }
 
-#buttons{
+#buttons {
   text-align: center;
 }
 
-#reset-button{
+#reset-button {
   border-color: rgba(5, 5, 5, 0.849);
   border-width: 1px;
-  background-color:#691a32;
+  background-color: #691a32;
   border-style: solid;
   border-radius: 5px;
   font-weight: 500;
   color: white;
   transition-duration: 0.4s;
-  width:75 px;
-
+  width: 75 px;
 }
-#reset-button:hover{
-  background-color:#843a4f;
-
+#reset-button:hover {
+  background-color: #843a4f;
 }
-#submit-button{
+#submit-button {
   border-color: rgba(5, 5, 5, 0.849);
   border-width: 1px;
-  background-color:#cc90a1;
+  background-color: #cc90a1;
   border-style: solid;
   border-radius: 5px;
   font-weight: 500;
   color: white;
   transition-duration: 0.4s;
-
 }
-#submit-button:hover{
-  background-color:#843a4f;
+#submit-button:hover {
+  background-color: #843a4f;
 }
 
-
+#add-ing, #add-ins{
+  border-color: rgba(5, 5, 5, 0.849);
+  border-width: 1px;
+  background-color: #daccd0;
+  border-style: solid;
+  border-radius: 5px;
+  font-weight: 500;
+  color: black;
+  transition-duration: 0.4s;
+  width: 30 px;
+  margin-bottom: 10px;
+}
 </style>

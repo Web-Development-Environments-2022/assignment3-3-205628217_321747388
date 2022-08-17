@@ -17,18 +17,18 @@ import RecipePreview from "./RecipePreview.vue";
 export default {
   name: "ViewedRecipePreviewList",
   components: {
-    RecipePreview
+    RecipePreview,
   },
   props: {
     title: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       recipes: [],
-      myRecipe: false
+      myRecipe: false,
     };
   },
   mounted() {
@@ -40,10 +40,8 @@ export default {
         if (this.$root.store.viewed_list.length == 0) {
           try {
             const response = await this.axios.get(
-            this.$root.store.server_domain + "/users/viewed",
-            // "https://test-for-3-2.herokuapp.com/recipes/random"
+              this.$root.store.server_domain + "/users/viewed"
             );
-            console.log(response);
             const recipes = response.data;
             let viewed_list = [];
             viewed_list.push(...recipes);
@@ -52,7 +50,7 @@ export default {
             console.log(error);
           }
         }
-        
+
         let viewed_list = this.$root.store.viewed_list;
         this.recipes = [];
         if (viewed_list.length > 0) {
@@ -66,10 +64,10 @@ export default {
         }
         this.myRecipe = false;
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     },
-  }
+  },
 };
 </script>
 
@@ -78,8 +76,8 @@ export default {
   min-height: 400px;
 }
 
-h3{
-  font-family: 'Corben', cursive;
+h3 {
+  font-family: "Corben", cursive;
   text-shadow: 2px 3.5px #000000;
   -webkit-text-stroke: 1.2px black;
   color: #ebc2ce;

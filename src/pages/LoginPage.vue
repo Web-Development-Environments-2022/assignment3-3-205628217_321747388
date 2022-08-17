@@ -1,8 +1,8 @@
 <template>
   <div style="text-align: center;">
     <h3 id="login-title">
-        Join the community!
-        <slot></slot>
+      Join the community!
+      <slot></slot>
     </h3>
     <div id="login-form" class="container">
       <h1 id="title">Login</h1>
@@ -49,9 +49,10 @@
           >LOGIN</b-button
         >
         <div class="mt-2">
-          <!-- Do not have an account yet? -->
           DON'T HAVE AN ACCOUNT YET?
-          <router-link to="register" style="color:steelblue"> REGISTER HERE</router-link>
+          <router-link to="register" style="color:steelblue">
+            REGISTER HERE</router-link
+          >
         </div>
       </b-form>
       <b-alert
@@ -63,9 +64,6 @@
       >
         Login failed: {{ form.submitError }}
       </b-alert>
-      <!-- <b-card class="mt-3" header="Form Data Result">
-        <pre class="m-0">{{ form }}</pre>
-      </b-card> -->
     </div>
   </div>
 </template>
@@ -79,19 +77,19 @@ export default {
       form: {
         username: "",
         password: "",
-        submitError: undefined
-      }
+        submitError: undefined,
+      },
     };
   },
   validations: {
     form: {
       username: {
-        required
+        required,
       },
       password: {
-        required
-      }
-    }
+        required,
+      },
+    },
   },
   methods: {
     validateState(param) {
@@ -100,23 +98,15 @@ export default {
     },
     async Login() {
       try {
-        
         const response = await this.axios.post(
-          // "https://test-for-3-2.herokuapp.com/user/Login",
-          this.$root.store.server_domain +"/Login",
-          // "http://132.72.65.211:80/Login",
-          // "http://132.73.84.100:80/Login",
+          this.$root.store.server_domain + "/Login",
 
           {
             username: this.form.username,
-            password: this.form.password
+            password: this.form.password,
           }
         );
-        // console.log(response);
-        // this.$root.loggedIn = true;
-        // console.log(this.$root.store.login);
         this.$root.store.login(this.form.username);
-        // console.log(this.$root.store.lastSearch);
         this.$router.push("/");
         this.updateViewed();
         this.updateFavorite();
@@ -124,27 +114,20 @@ export default {
         console.log(err.response);
         this.form.submitError = err.response.data.message;
       }
-      
     },
     onLogin() {
-      // console.log("login method called");
       this.form.submitError = undefined;
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
       }
-      // console.log("login method go");
-
       this.Login();
-
     },
     async updateViewed() {
       try {
         const response = await this.axios.get(
-          this.$root.store.server_domain + "/users/viewed",
-          // "https://test-for-3-2.herokuapp.com/recipes/random"
+          this.$root.store.server_domain + "/users/viewed"
         );
-        console.log(response);
         const recipes = response.data;
         this.recipes = [];
         this.recipes.push(...recipes);
@@ -156,20 +139,17 @@ export default {
     async updateFavorite() {
       try {
         const response = await this.axios.get(
-          this.$root.store.server_domain + "/users/favorites",
-          // "https://test-for-3-2.herokuapp.com/recipes/random"
+          this.$root.store.server_domain + "/users/favorites"
         );
-        console.log(response);
         const recipes = response.data;
         this.recipes = [];
         this.recipes.push(...recipes);
-        console.log(this.recipes);
         this.$root.store.updateFavoriteList(this.recipes);
       } catch (error) {
         console.log(error);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -179,22 +159,21 @@ export default {
   margin-top: 30px;
   border-color: rgba(5, 5, 5, 0.849);
   border-width: 1px;
-  background-color:bisque;
+  background-color: bisque;
   border-style: solid;
   border-radius: 5px;
 }
 
-#title{
-  font-family: 'Corben', cursive;
+#title {
+  font-family: "Corben", cursive;
   font-style: italic;
   font-size: x-large;
   color: white;
   -webkit-text-stroke: 1.5px black;
-
 }
 
 #login-title {
-  font-family: 'Corben', cursive;
+  font-family: "Corben", cursive;
   text-shadow: 2px 3.5px #000000;
   -webkit-text-stroke: 1.2px black;
   color: #ebc2ce;
@@ -202,25 +181,23 @@ export default {
   margin-top: 10px;
 }
 
-#login-form{
-  font-family: 'Mukta', sans-serif;
+#login-form {
+  font-family: "Mukta", sans-serif;
 }
 
-#login-button{
+#login-button {
   display: block;
   border-color: rgba(5, 5, 5, 0.849);
   border-width: 1px;
-  background-color:#ebc2ce;
+  background-color: #ebc2ce;
   border-style: solid;
   border-radius: 5px;
   font-weight: bold;
   color: rgb(5, 5, 5);
   transition-duration: 0.4s;
-
 }
 
-#login-button:hover{
-  background-color:#cc90a1;
-
+#login-button:hover {
+  background-color: #cc90a1;
 }
 </style>

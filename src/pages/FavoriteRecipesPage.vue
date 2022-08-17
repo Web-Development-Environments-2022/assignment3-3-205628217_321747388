@@ -1,6 +1,10 @@
 <template>
-  <div class="container" style="text-align: center;">    
-    <RecipePreviewList ref="favoriteRecipes" title="Favorite recipes" class="RandomRecipes center" />            
+  <div class="container" style="text-align: center;">
+    <RecipePreviewList
+      ref="favoriteRecipes"
+      title="Favorite recipes"
+      class="RandomRecipes center"
+    />
   </div>
 </template>
 
@@ -8,10 +12,10 @@
 import RecipePreviewList from "../components/RecipePreviewList";
 export default {
   components: {
-    RecipePreviewList
+    RecipePreviewList,
   },
   mounted() {
-    this.$refs.favoriteRecipes.updateFavoriteRecipes();//*** */
+    this.$refs.favoriteRecipes.updateFavoriteRecipes();
   },
 };
 </script>
