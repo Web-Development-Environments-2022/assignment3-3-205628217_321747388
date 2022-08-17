@@ -95,11 +95,12 @@ const shared_data = {
     this.last_search = undefined;
   },
   updateFavoriteList(favorite_list) {
+    console.log("update Favorite List");
     localStorage.setItem("favorite_list", favorite_list);
     this.favorite_list = favorite_list;
   },
   updateViewedList(viewed_list) {
-    // console.log("updateViewedList")
+    console.log("update Viewed List")
     localStorage.setItem("viewed_list", viewed_list);
     this.viewed_list = viewed_list;
   },
