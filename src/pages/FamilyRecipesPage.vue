@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <h1 class="title">Family Recipes</h1>
+    <!-- <h1 id="title-fam" class="title">Family Recipes</h1> -->
     
-    <FamilyRecipes ref="familyRecipes" title="family recipes" class="RandomRecipes center" />
+    <FamilyRecipes ref="familyRecipes" title="Family ecipes" class="RandomRecipes center" />
              
   </div>
 </template>
@@ -30,5 +30,14 @@ export default {
 ::v-deep .blur .recipe-preview {
   pointer-events: none;
   cursor: default;
+}
+
+#title-fam{
+  font-family: 'Corben', cursive;
+  text-shadow: 2px 3.5px #000000;
+  -webkit-text-stroke: 1.2px black;
+  color: #ebc2ce;
+  font-size: 50px;
+  text-align: center;
 }
 </style>

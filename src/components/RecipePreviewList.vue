@@ -1,4 +1,5 @@
 <template>
+<div class="container">
   <b-container>
     <h3>
       {{ title }}
@@ -10,6 +11,7 @@
       </b-col>
     </b-row>
   </b-container>
+</div>
 </template>
 
 <script>
@@ -77,13 +79,13 @@ export default {
         let viewed_list = this.$root.store.viewed_list;
         this.recipes = [];
         if (viewed_list.length > 0) {
-          this.recipes.push(viewed_list[0]);
+        this.recipes.push(viewed_list[0]);
         }
         if (viewed_list.length > 1) {
-          this.recipes.push(viewed_list[1]);
+        this.recipes.push(viewed_list[1]);
         }
         if (viewed_list.length > 2) {
-          this.recipes.push(viewed_list[2]);
+        this.recipes.push(viewed_list[2]);
         }
         this.myRecipe = false;
       } catch (error) {
@@ -146,6 +148,7 @@ h3{
   text-shadow: 2px 3.5px #000000;
   -webkit-text-stroke: 1.2px black;
   color: #ebc2ce;
-  font-size: x-large;
+  font-size: xx-large;
+  margin-top: 10px;
 }
 </style>

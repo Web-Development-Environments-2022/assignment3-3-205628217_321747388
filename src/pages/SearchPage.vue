@@ -1,6 +1,8 @@
 <template>
-  <div class="container">
-    <h1 class="title">Search Page</h1>
+<div>
+  <h1 id="search-title" class="title">Search Page</h1>
+  <div id="search-form" class="container">
+
 
     <b-form @submit.prevent="onSearch" @reset.prevent="onReset">
       <!-- Query -->
@@ -85,15 +87,18 @@
         ></b-form-select>
       </b-form-group>
 
-
-      <b-button type="reset" variant="danger">Reset</b-button>
+    <div id="buttons-s">
+      <b-button id="reset-button-s" type="reset" variant="danger">Reset</b-button>
       <b-button
+        id="search-button"
         type="submit"
         variant="primary"
         style="width:250px;"
         class="ml-5 w-75"
         >Search</b-button>
+    </div>
     </b-form>
+    </div>
     <b-alert
       class="mt-2"
       v-if="form.submitError"
@@ -104,20 +109,25 @@
       Search failed: {{ form.submitError }}
     </b-alert>
 
-    <!-- {{ search_results }} -->
-    <!-- <b-col v-for="r in search_results" :key="r.id">
-        <RecipePreview class="recipePreview" :recipe="r" />
-    </b-col> -->
-    <b-dropdown id="sort" v-if="!isEmpty" text="Sort By" class="m-md-2">
-      <b-dropdown-item v-on:click="this.sortByPrepTime">Preperation Time</b-dropdown-item>
-      <b-dropdown-item v-on:click="this.sortByPopularity">Popularity</b-dropdown-item>
-    </b-dropdown>
-    <h5 v-if="noResults">We couldn't find recipes to match your search</h5>
-    <RecipePreviewList ref="res" title="Search Results" class="RandomRecipes center" />
-    
-    
-    
+    <div v-if="submitted">
+      <h5 id="no-res" v-if="noResults">We couldn't find recipes to match your search</h5>
+      <div v-else class="text-center">
+        <b-dropdown id="sort" v-if="!isEmpty" text="Sort By" variant="outline-dark" class="m-2">
+          <b-dropdown-item v-on:click="this.sortByPrepTime">Preperation Time</b-dropdown-item>
+          <b-dropdown-item v-on:click="this.sortByPopularity">Popularity</b-dropdown-item>
+        </b-dropdown>      
+        <RecipePreviewList ref="res" title="Search Results" class="RandomRecipes center" />
+      </div>
+    </div>
+    <!-- <div id="divvv" class="center">
+              <b-dropdown id="sort" text="Sort By" class="m-md-2">
+          <b-dropdown-item v-on:click="this.sortByPrepTime">Preperation Time</b-dropdown-item>
+          <b-dropdown-item v-on:click="this.sortByPopularity">Popularity</b-dropdown-item>
+        </b-dropdown>      
+        <RecipePreviewList ref="res" title="Search Results" class="RandomRecipes center" />
+    </div> -->
 
+    
   </div>
 </template>
 
@@ -163,7 +173,8 @@ export default {
       errors: [],
       validated: false,
       search_results: [],
-      noResults: false
+      noResults: false,
+      submitted: false
     };
   },
   validations: {
@@ -220,6 +231,8 @@ export default {
         }
         else{
           this.noResults = true;
+          this.$refs.res.pushRecipes(this.search_results);
+
         }
         // console.log(response);
 
@@ -241,6 +254,7 @@ export default {
     },
     onSearch() {
       this.noResults = false;
+      this.submitted = true;
       console.log("Search method called");
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
@@ -305,5 +319,87 @@ export default {
 </script>
 
 <style>
+ #search-form{
+  max-width: 600px;
+  padding: 15px;
+  margin-top: 30px;
+  border-color: rgba(5, 5, 5, 0.849);
+  border-width: 1px;
+  background-color:bisque;
+  border-style: solid;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: bolder;
+ }
+
+ #search-title{
+  font-family: 'Corben', cursive;
+  text-shadow: 2px 3.5px #000000;
+  -webkit-text-stroke: 1.2px black;
+  color: #ebc2ce;
+  font-size: 50px;
+  text-align: center;
+ }
+
+ #buttons-s{
+  text-align: center;
+}
+
+#reset-button-s{
+  border-color: rgba(5, 5, 5, 0.849);
+  border-width: 1px;
+  background-color:#691a32;
+  border-style: solid;
+  border-radius: 5px;
+  font-weight: 500;
+  color: white;
+  transition-duration: 0.4s;
+  width:75 px;
+
+}
+#reset-button-s:hover{
+  background-color:#843a4f;
+
+}
+#search-button{
+  border-color: rgba(5, 5, 5, 0.849);
+  border-width: 1px;
+  background-color:#ebc2ce;
+  border-style: solid;
+  border-radius: 5px;
+  font-weight: bold;
+  color: rgb(5, 5, 5);
+  transition-duration: 0.4s;
+
+}
+#search-button:hover{
+  background-color:#cc90a1;
+}
+
+#no-res{
+  text-align: center;
+  font-size: 23px;
+  font-weight: 600;
+  color: white;
+  margin-top: 20px;
+}
+
+/* #sort{
+  text-align: center;
+  margin-top: 20px;
+  border-color: rgba(5, 5, 5, 0.849);
+  border-width: 1px;
+  background-color:white;
+  border-style: solid;
+  border-radius: 5px;
+  font-weight: bold;
+  color: rgb(5, 5, 5);
+} */
+
+#sort{
+  background-color:#ebc2ce;
+  border-radius:4px;
+
+}
 
 </style>

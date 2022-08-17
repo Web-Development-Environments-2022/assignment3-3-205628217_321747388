@@ -1,9 +1,6 @@
 <template>
-  <div class="container">
-    <h1 class="title">Favorite Recipes</h1>
-    
-    <RecipePreviewList ref="favoriteRecipes" title="Favorite recipes" class="RandomRecipes center" />
-             
+  <div class="container" style="text-align: center;">    
+    <RecipePreviewList ref="favoriteRecipes" title="Favorite recipes" class="RandomRecipes center" />            
   </div>
 </template>
 

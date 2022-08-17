@@ -1,6 +1,5 @@
 <template>
-  <div class="container">
-    <h1 class="title">My Recipes</h1>
+  <div class="container" style="text-align: center;">
     
     <RecipePreviewList ref="myRecipes" title="My recipes" class="RandomRecipes center" />
              

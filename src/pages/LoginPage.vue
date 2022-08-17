@@ -1,65 +1,72 @@
 <template>
-  <div class="container">
-    <h1 class="title">Login</h1>
-    <b-form @submit.prevent="onLogin">
-      <b-form-group
-        id="input-group-Username"
-        label-cols-sm="3"
-        label="Username:"
-        label-for="Username"
-      >
-        <b-form-input
-          id="Username"
-          v-model="$v.form.username.$model"
-          type="text"
-          :state="validateState('username')"
-        ></b-form-input>
-        <b-form-invalid-feedback>
-          Username is required
-        </b-form-invalid-feedback>
-      </b-form-group>
+  <div style="text-align: center;">
+    <h3 id="login-title">
+        Join the community!
+        <slot></slot>
+    </h3>
+    <div id="login-form" class="container">
+      <h1 id="title">Login</h1>
+      <b-form id="login-form" @submit.prevent="onLogin">
+        <b-form-group
+          id="input-group-Username"
+          label-cols-sm="3"
+          label="USERNAME :"
+          label-for="Username"
+        >
+          <b-form-input
+            id="Username"
+            v-model="$v.form.username.$model"
+            type="text"
+            :state="validateState('username')"
+          ></b-form-input>
+          <b-form-invalid-feedback>
+            Username is required
+          </b-form-invalid-feedback>
+        </b-form-group>
 
-      <b-form-group
-        id="input-group-Password"
-        label-cols-sm="3"
-        label="Password:"
-        label-for="Password"
-      >
-        <b-form-input
-          id="Password"
-          type="password"
-          v-model="$v.form.password.$model"
-          :state="validateState('password')"
-        ></b-form-input>
-        <b-form-invalid-feedback>
-          Password is required
-        </b-form-invalid-feedback>
-      </b-form-group>
+        <b-form-group
+          id="input-group-Password"
+          label-cols-sm="3"
+          label="PASSWORD :"
+          label-for="Password"
+        >
+          <b-form-input
+            id="Password"
+            type="password"
+            v-model="$v.form.password.$model"
+            :state="validateState('password')"
+          ></b-form-input>
+          <b-form-invalid-feedback>
+            Password is required
+          </b-form-invalid-feedback>
+        </b-form-group>
 
-      <b-button
-        type="submit"
-        variant="primary"
-        style="width:100px;display:block;"
-        class="mx-auto w-100"
-        >Login</b-button
+        <b-button
+          id="login-button"
+          type="submit"
+          variant="primary"
+          class="mx-auto w-50"
+          >LOGIN</b-button
+        >
+        <div class="mt-2">
+          <!-- Do not have an account yet? -->
+          DON'T HAVE AN ACCOUNT YET?
+          <router-link to="register" style="color:steelblue"> REGISTER HERE</router-link>
+        </div>
+      </b-form>
+      <b-alert
+        class="mt-2"
+        v-if="form.submitError"
+        variant="warning"
+        dismissible
+        show
       >
-      <div class="mt-2">
-        Do not have an account yet?
-        <router-link to="register"> Register in here</router-link>
-      </div>
-    </b-form>
-    <b-alert
-      class="mt-2"
-      v-if="form.submitError"
-      variant="warning"
-      dismissible
-      show
-    >
-      Login failed: {{ form.submitError }}
-    </b-alert>
-    <!-- <b-card class="mt-3" header="Form Data Result">
-      <pre class="m-0">{{ form }}</pre>
-    </b-card> -->
+        Login failed: {{ form.submitError }}
+      </b-alert>
+      <!-- <b-card class="mt-3" header="Form Data Result">
+        <pre class="m-0">{{ form }}</pre>
+      </b-card> -->
+    </div>
   </div>
 </template>
 
@@ -167,5 +174,51 @@ export default {
 <style lang="scss" scoped>
 .container {
   max-width: 400px;
+  padding: 15px;
+  margin-top: 30px;
+  border-color: rgba(5, 5, 5, 0.849);
+  border-width: 1px;
+  background-color:bisque;
+  border-style: solid;
+  border-radius: 5px;
+}
+
+#title{
+  font-family: 'Corben', cursive;
+  font-style: italic;
+  font-size: x-large;
+  color: white;
+  -webkit-text-stroke: 1.5px black;
+
+}
+
+#login-title {
+  font-family: 'Corben', cursive;
+  text-shadow: 2px 3.5px #000000;
+  -webkit-text-stroke: 1.2px black;
+  color: #ebc2ce;
+  font-size: x-large;
+}
+
+#login-form{
+  font-family: 'Mukta', sans-serif;
+}
+
+#login-button{
+  display: block;
+  border-color: rgba(5, 5, 5, 0.849);
+  border-width: 1px;
+  background-color:#ebc2ce;
+  border-style: solid;
+  border-radius: 5px;
+  font-weight: bold;
+  color: rgb(5, 5, 5);
+  transition-duration: 0.4s;
+
+}
+
+#login-button:hover{
+  background-color:#cc90a1;
+
 }
 </style>

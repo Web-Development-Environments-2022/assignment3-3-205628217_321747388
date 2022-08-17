@@ -1,6 +1,7 @@
 <template>
-  <div class="container">
-    <h1 class="title">Register</h1>
+  <div id="reg-form" class="container">
+    <h1 id="reg-title" class="title">Register</h1>
+    <br/>
     <b-form @submit.prevent="onRegister" @reset.prevent="onReset">
       <!-- username -->
       <b-form-group
@@ -174,15 +175,16 @@
           Have length between 5-10 characters long
         </b-form-invalid-feedback> -->
       </b-form-group>
-
-      <b-button type="reset" variant="danger">Reset</b-button>
+      <div id="buttons">
+      <b-button id="reset-button" type="reset" variant="danger">Reset</b-button>
       <b-button
+        id="reg-button"
         type="submit"
         variant="primary"
-        style="width:250px;"
         class="ml-5 w-75"
         >Register</b-button
       >
+      </div>
       <div class="mt-2">
         You have an account already?
         <router-link to="login"> Log in here</router-link>
@@ -326,6 +328,64 @@ export default {
 </script>
 <style lang="scss" scoped>
 .container {
-  max-width: 500px;
+  max-width: 600px;
+}
+#reg-form{
+  padding: 15px;
+  margin-top: 30px;
+  border-color: rgba(5, 5, 5, 0.849);
+  border-width: 1px;
+  background-color:bisque;
+  border-style: solid;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+#reg-title{
+  font-family: 'Corben', cursive;
+  text-shadow: 2px 3.5px #000000;
+  -webkit-text-stroke: 1.2px black;
+  color: #ebc2ce;
+  font-size: 50px;
+  text-align: center;
+}
+
+#buttons{
+  text-align: center;
+}
+
+#reset-button{
+  // display: block;
+  border-color: rgba(5, 5, 5, 0.849);
+  border-width: 1px;
+  background-color:#691a32;
+  border-style: solid;
+  border-radius: 5px;
+  font-weight: 500;
+  color: white;
+  transition-duration: 0.4s;
+  width:75 px;
+
+}
+#reset-button:hover{
+  background-color:#843a4f;
+
+}
+#reg-button{
+  // display: block;
+  border-color: rgba(5, 5, 5, 0.849);
+  border-width: 1px;
+  background-color:#ebc2ce;
+  border-style: solid;
+  border-radius: 5px;
+  font-weight: bold;
+  color: rgb(5, 5, 5);
+  transition-duration: 0.4s;
+
+}
+#reg-button:hover{
+  background-color:#cc90a1;
+
 }
 </style>

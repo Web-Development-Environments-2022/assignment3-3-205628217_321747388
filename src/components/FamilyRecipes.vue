@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <h3>
+    <h3 id="title-fam">
       {{ title }}
       <slot></slot>
     </h3>
@@ -73,11 +73,12 @@ export default {
   min-height: 400px;
 }
 
-h3{
+#title-fam{
   font-family: 'Corben', cursive;
   text-shadow: 2px 3.5px #000000;
   -webkit-text-stroke: 1.2px black;
   color: #ebc2ce;
-  font-size: x-large;
+  font-size: 50px;
+  text-align: center;
 }
 </style>

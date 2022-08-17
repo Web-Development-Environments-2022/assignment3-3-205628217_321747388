@@ -6,12 +6,17 @@
       id="recipe-modal"
       ref="recipe-modal"
       title="Add New Recipe"
+      header-bg-variant="secondary"
+      header-text-variant  = "light"
+      body-bg-variant= "secondary"
       hide-footer
       @show="resetModal"
       @hidden="resetModal"
       @hide="exit"
+      modal-class="my-second-class"
+      
     >
-    <b-form @submit.prevent="onSubmit" @reset.prevent="onReset">
+    <b-form id="new-form" @submit.prevent="onSubmit" @reset.prevent="onReset">
       <!-- Recipe Name -->
       <b-form-group
         id="input-group-name"
@@ -196,15 +201,17 @@
       </b-form-group>
 
       
-
-      <b-button type="reset" variant="danger">Reset</b-button>
+      <div id="buttons">
+      <b-button id="reset-button" type="reset" variant="danger">Reset</b-button>
       <b-button
+        id="submit-button"
         type="submit"
         variant="primary"
         style="width:250px;"
         class="ml-5 w-75"
         >Submit</b-button
       >
+      </div>
     </b-form>
     <b-alert
       class="mt-2"
@@ -372,4 +379,73 @@ export default {
 .container {
   max-width: 500px;
 }
+
+
+
+// #recipe-modal{
+//   border-color: rgba(5, 5, 5, 0.849);
+//   border-width: 10px;
+//   background-color:bisque;
+//   border-style: solid;
+//   border-radius: 5px;
+//   font-size: 20px;
+//   font-weight: bolder;
+// }
+
+#new-form{
+  // border-color: rgba(5, 5, 5, 0.849);
+  // border-width: 1px;
+  // background-color:bisque;
+  // border-style: solid;
+  // border-radius: 5px;
+  font-size: 20px;
+  font-weight: 500;
+  font-family: 'Mukta', sans-serif;
+  margin: 0%;
+  color: white;
+}
+
+#name, #image, #readyInMinutes, #vegetarian, #vegan, #glutenFree, #ingredients, #instructions, #servings{
+  border-style: solid;
+  border-radius: 5px;
+  border-color: rgba(5, 5, 5, 0.849);
+  border-width: 1px;
+}
+
+#buttons{
+  text-align: center;
+}
+
+#reset-button{
+  border-color: rgba(5, 5, 5, 0.849);
+  border-width: 1px;
+  background-color:#691a32;
+  border-style: solid;
+  border-radius: 5px;
+  font-weight: 500;
+  color: white;
+  transition-duration: 0.4s;
+  width:75 px;
+
+}
+#reset-button:hover{
+  background-color:#843a4f;
+
+}
+#submit-button{
+  border-color: rgba(5, 5, 5, 0.849);
+  border-width: 1px;
+  background-color:#cc90a1;
+  border-style: solid;
+  border-radius: 5px;
+  font-weight: 500;
+  color: white;
+  transition-duration: 0.4s;
+
+}
+#submit-button:hover{
+  background-color:#843a4f;
+}
+
+
 </style>
