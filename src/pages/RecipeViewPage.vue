@@ -101,7 +101,7 @@ export default {
           this.$router.replace("/NotFound");
           return;
         }
-        // console.log(response.data)
+        console.log(response.data)
         let {
           analyzedInstructions,
           instructions,

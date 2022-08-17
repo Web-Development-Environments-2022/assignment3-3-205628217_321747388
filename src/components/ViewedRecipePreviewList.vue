@@ -38,19 +38,19 @@ export default {
     async updateViewedRecipes() {
       try {
         if (this.$root.store.viewed_list.length == 0) {
-        try {
-        const response = await this.axios.get(
-          this.$root.store.server_domain + "/users/viewed",
-          // "https://test-for-3-2.herokuapp.com/recipes/random"
-        );
-        console.log(response);
-        const recipes = response.data;
-        this.recipes = [];
-        this.recipes.push(...recipes);
-        this.$root.store.updateViewedList(this.recipes);
-      } catch (error) {
-        console.log(error);
-      }
+          try {
+            const response = await this.axios.get(
+            this.$root.store.server_domain + "/users/viewed",
+            // "https://test-for-3-2.herokuapp.com/recipes/random"
+            );
+            console.log(response);
+            const recipes = response.data;
+            let viewed_list = [];
+            viewed_list.push(...recipes);
+            this.$root.store.updateViewedList(viewed_list);
+          } catch (error) {
+            console.log(error);
+          }
         }
         
         let viewed_list = this.$root.store.viewed_list;
