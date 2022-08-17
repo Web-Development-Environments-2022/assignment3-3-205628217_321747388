@@ -18,11 +18,11 @@
                             <div>When to have: {{r.whenToHave}}</div>
                         </div>
                         Ingredients:
-                        <div>{{r.ingredients}}</div>
+                        <div style="white-space: pre-wrap;">{{r.ingredients}}</div>
                     </div>
                     <div class="wrapped">
                         Instructions:
-                        <div>{{r.instructions}}</div>
+                        <div style="white-space: pre-wrap;">{{r.instructions}}</div>
                     </div>
                 </div>
             </div>
