@@ -66,6 +66,8 @@ export default {
 <style lang="scss">
 @import "@/scss/form-style.scss";
 @import url('https://fonts.googleapis.com/css2?family=Corben:wght@700&family=Mukta&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Handlee&display=swap');
+
 
 #app {
   // font-family: Avenir, Helvetica, Arial, sans-serif;

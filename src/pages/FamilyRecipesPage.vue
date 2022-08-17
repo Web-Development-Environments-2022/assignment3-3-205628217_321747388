@@ -1,8 +1,8 @@
 <template>
-  <div class="container">
+  <div class="container center">
     <!-- <h1 id="title-fam" class="title">Family Recipes</h1> -->
     
-    <FamilyRecipes ref="familyRecipes" title="Family ecipes" class="RandomRecipes center" />
+    <FamilyRecipes ref="familyRecipes" title="Family Recipes" class="RandomRecipes center" />
              
   </div>
 </template>
@@ -21,7 +21,7 @@ export default {
 
 <style lang="scss" scoped>
 .RandomRecipes {
-  margin: 10px 0 10px;
+  // margin: 10px 0 10px;
 }
 .blur {
   -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
