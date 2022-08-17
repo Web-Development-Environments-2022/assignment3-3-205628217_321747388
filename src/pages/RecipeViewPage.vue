@@ -210,7 +210,41 @@ export default {
       console.log(error);
     }
     
-  }
+  },
+  methods: {
+    async markAsFavorite() {
+      try {
+        let recipeId = this.$route.params.recipeId;
+        const response = await this.axios.post(
+          this.$root.store.server_domain + "/users/favorites",
+          {
+            recipeId: recipeId
+          }
+        );
+        console.log("response.status", response.status);
+        this.$root.toast("Favorite", "The Recipe successfully saved as favorite", "success");
+      } catch (error) {
+        console.log(error);
+      }
+      this.updateFavoriteList();
+      this.favorite = true;
+    },
+    async updateFavoriteList() {
+      try {
+        const response = await this.axios.get(
+          this.$root.store.server_domain + "/users/favorites",
+          // "https://test-for-3-2.herokuapp.com/recipes/random"
+        );
+        console.log(response);
+        const recipes = response.data;
+        let recipes_list = [];
+        recipes_list.push(...recipes);
+        this.$root.store.updateFavoriteList(recipes_list);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  } 
 };
 </script>
 
